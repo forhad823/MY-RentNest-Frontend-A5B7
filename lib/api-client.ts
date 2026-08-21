@@ -13,7 +13,7 @@ const BASE_URL =
  ****/
 export async function apiFetch<T>(
   endpoint: string,
-  options: RequestInit = {}
+  options: RequestInit = {},
 ): Promise<TApiResponse<T>> {
   let cookieHeader = "";
 
@@ -38,14 +38,15 @@ export async function apiFetch<T>(
     headers.set("Cookie", cookieHeader);
   }
 
-  const normalizedEndpoint = endpoint.startsWith("/") ? endpoint : `/${endpoint}`;
+  const normalizedEndpoint = endpoint.startsWith("/")
+    ? endpoint
+    : `/${endpoint}`;
   const response = await fetch(`${BASE_URL}${normalizedEndpoint}`, {
     ...options,
     headers,
     credentials: "include",
   });
 
-  
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   let resData: any;
   try {
@@ -60,20 +61,20 @@ export async function apiFetch<T>(
   }
 
   if (!response.ok || !resData.success) {
-    throw new Error(resData.message || `Request failed with status ${response.status}`);
+    throw new Error(
+      resData.message || `Request failed with status ${response.status}`,
+    );
   }
-
   return resData as TApiResponse<T>;
 }
 
 // -------- Convenience HTTP Method Wrappers --------
 
-
 //  * HTTP GET request wrapper
 
 export async function apiGet<T>(
   endpoint: string,
-  options: RequestInit = {}
+  options: RequestInit = {},
 ): Promise<TApiResponse<T>> {
   return apiFetch<T>(endpoint, {
     ...options,
@@ -81,13 +82,12 @@ export async function apiGet<T>(
   });
 }
 
-
 //  * HTTP POST request wrapper
 
 export async function apiPost<T>(
   endpoint: string,
   body?: unknown,
-  options: RequestInit = {}
+  options: RequestInit = {},
 ): Promise<TApiResponse<T>> {
   const isFormData = body instanceof FormData;
   return apiFetch<T>(endpoint, {
@@ -97,13 +97,12 @@ export async function apiPost<T>(
   });
 }
 
-
 //  * HTTP PUT request wrapper
 
 export async function apiPut<T>(
   endpoint: string,
   body?: unknown,
-  options: RequestInit = {}
+  options: RequestInit = {},
 ): Promise<TApiResponse<T>> {
   const isFormData = body instanceof FormData;
   return apiFetch<T>(endpoint, {
@@ -113,13 +112,12 @@ export async function apiPut<T>(
   });
 }
 
-
 //   HTTP PATCH request wrapper
 
 export async function apiPatch<T>(
   endpoint: string,
   body?: unknown,
-  options: RequestInit = {}
+  options: RequestInit = {},
 ): Promise<TApiResponse<T>> {
   const isFormData = body instanceof FormData;
   return apiFetch<T>(endpoint, {
@@ -129,11 +127,10 @@ export async function apiPatch<T>(
   });
 }
 
-
 //   HTTP DELETE request wrapper
 export async function apiDelete<T>(
   endpoint: string,
-  options: RequestInit = {}
+  options: RequestInit = {},
 ): Promise<TApiResponse<T>> {
   return apiFetch<T>(endpoint, {
     ...options,

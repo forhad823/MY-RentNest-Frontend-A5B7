@@ -40,9 +40,9 @@ export default async function LandingPage() {
 
   const categories = categoriesRes.data || [];
   const featuredProperties = propertiesRes.data || [];
-  featuredProperties.map((property) => {
-    console.log("propertyImage:", property.images?.[0]);
-  });
+  // featuredProperties.map((property) => {
+  //   console.log("propertyImage:", property.images?.[0]);
+  // });
   return (
     <div className="flex flex-col min-h-screen">
       {/* -------- Hero Section -------- */}
