@@ -6,7 +6,7 @@ const nextConfig: NextConfig = {
   images: {
     remotePatterns: [
       {
-        hostname: "encrypted-tbn0.gstatic.com",
+        hostname: "i.postimg.cc",
       },
     ],
   },
