@@ -9,13 +9,15 @@ const TENANT_ROUTES = ["/dashboard/tenant"];
 const LANDLORD_ROUTES = ["/dashboard/landlord"];
 const ADMIN_ROUTES = ["/dashboard/admin"];
 
+/****
+ * Next.js 16 Proxy function providing:
+ * 1. Automatic token refresh when accessToken expires but refreshToken is valid
+ * 2. Redirection away from login/register for authenticated users
+ * 3. Route guarding for protected paths (/dashboard, /payment)
+ * 4. Strict role-based access control (TENANT, LANDLORD, ADMIN)
+ ****/
 export async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
-
-  if (pathname === "/") {
-    return NextResponse.next();
-  }
-  
   let accessToken = request.cookies.get("accessToken")?.value;
   const refreshToken = request.cookies.get("refreshToken")?.value;
 
@@ -24,20 +26,17 @@ export async function proxy(request: NextRequest) {
     : null;
 
   const decodedRefresh = refreshToken
-    ? jwtUtils.verifyToken(
-        refreshToken,
-        process.env.JWT_REFRESH_SECRET as string,
-      )
+    ? jwtUtils.verifyToken(refreshToken, process.env.JWT_REFRESH_SECRET as string)
     : null;
 
   // Auto-refresh token if access token is expired but refresh token is valid
   if (!decodedAccess?.success && decodedRefresh?.success) {
     const refreshRes = await getNewAccessToken();
-    if (refreshRes?.success) {
+    if (refreshRes?.success && refreshRes.data?.accessToken) {
       accessToken = refreshRes.data.accessToken;
       decodedAccess = jwtUtils.verifyToken(
-        accessToken!,
-        process.env.JWT_ACCESS_SECRET as string,
+        accessToken,
+        process.env.JWT_ACCESS_SECRET as string
       );
     }
   }
@@ -48,19 +47,13 @@ export async function proxy(request: NextRequest) {
 
   // Authenticated user accessing auth routes
   if (accessToken && userRole && AUTH_ROUTES.includes(pathname)) {
-    if (userRole === "TENANT")
-      return NextResponse.redirect(new URL("/dashboard/tenant", request.url));
-    if (userRole === "LANDLORD")
-      return NextResponse.redirect(new URL("/dashboard/landlord", request.url));
-    if (userRole === "ADMIN")
-      return NextResponse.redirect(new URL("/dashboard/admin", request.url));
+    if (userRole === "TENANT") return NextResponse.redirect(new URL("/dashboard/tenant", request.url));
+    if (userRole === "LANDLORD") return NextResponse.redirect(new URL("/dashboard/landlord", request.url));
+    if (userRole === "ADMIN") return NextResponse.redirect(new URL("/dashboard/admin", request.url));
   }
 
   // Guard protected routes
-  if (
-    !accessToken &&
-    (pathname.startsWith("/dashboard") || pathname.startsWith("/payment"))
-  ) {
+  if (!accessToken && (pathname.startsWith("/dashboard") || pathname.startsWith("/payment"))) {
     const loginUrl = new URL("/login", request.url);
     loginUrl.searchParams.set("redirectTo", pathname);
     return NextResponse.redirect(loginUrl);
