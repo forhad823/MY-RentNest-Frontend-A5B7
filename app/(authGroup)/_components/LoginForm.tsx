@@ -11,7 +11,14 @@ import { loginAction } from "@/app/(authGroup)/_actions/authAction";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 
 export function LoginForm() {
   const router = useRouter();
@@ -23,7 +30,7 @@ export function LoginForm() {
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!email || !password) {
       toast.error("Please fill in all fields");
@@ -43,7 +50,8 @@ export function LoginForm() {
         toast.error(res.error || res.message || "Failed to log in.");
       }
     } catch (err: unknown) {
-      const msg = err instanceof Error ? err.message : "An unexpected error occurred.";
+      const msg =
+        err instanceof Error ? err.message : "An unexpected error occurred.";
       toast.error(msg);
     } finally {
       setIsLoading(false);
@@ -53,7 +61,9 @@ export function LoginForm() {
   return (
     <Card className="w-full max-w-md shadow-lg border">
       <CardHeader className="space-y-1 text-center">
-        <CardTitle className="text-2xl font-bold tracking-tight">Welcome Back</CardTitle>
+        <CardTitle className="text-2xl font-bold tracking-tight">
+          Welcome Back
+        </CardTitle>
         <CardDescription>
           Enter your credentials to access your RentNest account
         </CardDescription>
@@ -94,7 +104,11 @@ export function LoginForm() {
                 onClick={() => setShowPassword(!showPassword)}
                 disabled={isLoading}
               >
-                {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                {showPassword ? (
+                  <EyeOff className="h-4 w-4" />
+                ) : (
+                  <Eye className="h-4 w-4" />
+                )}
                 <span className="sr-only">Toggle password visibility</span>
               </Button>
             </div>
@@ -117,7 +131,11 @@ export function LoginForm() {
           <div className="text-center text-sm text-muted-foreground">
             Don&apos;t have an account?{" "}
             <Link
-              href={redirectTo ? `/register?redirectTo=${encodeURIComponent(redirectTo)}` : "/register"}
+              href={
+                redirectTo
+                  ? `/register?redirectTo=${encodeURIComponent(redirectTo)}`
+                  : "/register"
+              }
               className="font-medium text-primary hover:underline"
             >
               Sign up
