@@ -130,7 +130,7 @@ export async function logoutAction(): Promise<TActionResponse> {
   } catch (error: unknown) {
     const errMessage =
       error instanceof Error ? error.message : "Failed to log out.";
-    return {
+    return { 
       success: false,
       message: errMessage,
       error: errMessage,

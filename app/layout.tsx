@@ -6,6 +6,8 @@ import "./globals.css";
 import { getServerSession } from "@/lib/auth-session";
 import { Navbar } from "@/components/shared/navbar";
 
+export const instant = false;
+
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
 
 export default async function RootLayout({
@@ -20,9 +22,9 @@ export default async function RootLayout({
       lang="en"
       className={cn("h-full antialiased", "font-sans", inter.variable)}
     >
-      <body className="min-h-full flex flex-col bg-background text-foreground">
+      <body className="min-h-full flex flex-col bg-background text-foreground mx-auto max-w-full">
         <Toaster position="top-right" richColors />
-        
+
         {/* Navigation Header */}
         <Navbar user={session.user} />
 
@@ -31,6 +33,6 @@ export default async function RootLayout({
 
         {/* Footer placeholder */}
       </body>
-    </html> 
+    </html>
   );
-}       
+}
