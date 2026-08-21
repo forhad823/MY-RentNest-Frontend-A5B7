@@ -4,7 +4,16 @@
 import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Home, Menu, Building, PlusCircle, FileText, Shield, LogIn, UserPlus } from "lucide-react";
+import {
+  Home,
+  Menu,
+  Building,
+  PlusCircle,
+  FileText,
+  Shield,
+  LogIn,
+  UserPlus,
+} from "lucide-react";
 
 import { TAuthUser } from "@/lib/auth-session";
 import { cn } from "@/lib/utils";
@@ -60,7 +69,7 @@ export function Navbar({ user }: NavbarProps) {
   const navLinks = getNavLinks();
 
   return (
-    <header className="sticky top-0 z-40 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+    <header className="sticky top-0 z-40 w-full border-b bg-background/95 backdrop-blur supports-backdrop-filter:bg-background/60">
       <div className="container flex h-16 items-center justify-between px-4 md:px-8">
         {/* Brand Logo */}
         <Link href="/" className="flex items-center space-x-2">
@@ -82,7 +91,7 @@ export function Navbar({ user }: NavbarProps) {
                 "transition-colors hover:text-primary",
                 pathname === link.href
                   ? "text-primary font-semibold"
-                  : "text-muted-foreground"
+                  : "text-muted-foreground",
               )}
             >
               {link.label}
@@ -155,7 +164,7 @@ export function Navbar({ user }: NavbarProps) {
                       "flex items-center px-2 py-2 text-sm font-medium rounded-md transition-colors hover:bg-accent",
                       pathname === link.href
                         ? "bg-accent text-primary font-semibold"
-                        : "text-foreground"
+                        : "text-foreground",
                     )}
                   >
                     {link.label}
@@ -165,13 +174,22 @@ export function Navbar({ user }: NavbarProps) {
 
               {!user && (
                 <div className="flex flex-col space-y-2 border-t pt-4">
-                  <Button asChild variant="outline" className="w-full justify-start" onClick={() => setIsOpen(false)}>
+                  <Button
+                    asChild
+                    variant="outline"
+                    className="w-full justify-start"
+                    onClick={() => setIsOpen(false)}
+                  >
                     <Link href="/login">
                       <LogIn className="mr-2 h-4 w-4" />
                       Log in
                     </Link>
                   </Button>
-                  <Button asChild className="w-full justify-start" onClick={() => setIsOpen(false)}>
+                  <Button
+                    asChild
+                    className="w-full justify-start"
+                    onClick={() => setIsOpen(false)}
+                  >
                     <Link href="/register">
                       <UserPlus className="mr-2 h-4 w-4" />
                       Sign up
