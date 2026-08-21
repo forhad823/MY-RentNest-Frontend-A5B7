@@ -194,7 +194,7 @@ export function PropertyFilterSidebar({
         <Select
           key={`cat-${categoryId}`}
           value={categoryId}
-          onValueChange={(val) => updateParam("categoryId", val)}
+          onValueChange={(val) => updateParam("categoryId", val)}   
         >
           <SelectTrigger className="w-full">
             <SelectValue placeholder="All Categories" />
@@ -309,3 +309,4 @@ export function PropertyFilterSidebar({
     </div>
   );
 }
+
