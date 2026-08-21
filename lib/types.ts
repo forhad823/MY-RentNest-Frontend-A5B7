@@ -1,12 +1,32 @@
-// -------- RentNest Shared Types & Interfaces ---------
-
+// -------- Enums --------
 export type Role = "TENANT" | "LANDLORD" | "ADMIN";
 export type ActiveStatus = "ACTIVE" | "BLOCKED";
 export type PropertyAvailability = "AVAILABLE" | "RENTED" | "MAINTENANCE";
-export type RentalRequestStatus = "PENDING" | "APPROVED" | "REJECTED" | "ACTIVE";
+export type RentalRequestStatus =
+  | "PENDING"
+  | "APPROVED"
+  | "REJECTED"
+  | "ACTIVE";
+
 export type PaymentStatus = "PENDING" | "COMPLETED" | "FAILED";
 
-export interface IUser {
+// -------- -------------------
+export type TMeta = {
+  page: number;
+  limit: number;
+  total: number;
+};
+
+export type TApiResponse<T> = {
+  success: boolean;
+  statusCode?: number;
+  message: string;
+  data: T;
+  meta?: TMeta;
+};
+
+// -----------------------
+export type TUser = {
   id: string;
   name: string;
   email: string;
@@ -14,92 +34,54 @@ export interface IUser {
   activeStatus: ActiveStatus;
   createdAt: string;
   updatedAt: string;
-}
+};
 
-export interface ICategory {
-  id?: string;
+export type TCategory = {
+  id: string;
   name: string;
   description?: string | null;
-  createdAt?: string;
-  updatedAt?: string;
-}
-
-export interface IReview {
-  id: string;
-  propertyId: string;
-  tenantId: string;
-  rating: number;
-  comment: string;
   createdAt: string;
   updatedAt: string;
-  tenant?: {
-    id: string;
-    name: string;
-    email: string;
-  };
-}
+};
 
-export interface IProperty {
+export type TProperty = {
   id: string;
   title: string;
+  description?: string;
   location: string;
   price: number;
   bedroomCount: number;
   bathroomCount: number;
   amenities: string[];
+  images?: string[];
   availabilityStatus: PropertyAvailability;
   categoryId: string;
+  category?: TCategory;
   landlordId: string;
-  createdAt: string;
-  updatedAt: string;
-  category?: ICategory;
-  landlord?: {
-    id: string;
-    name: string;
-    email: string;
-    role: Role;
-  };
-  reviews?: IReview[];
+  landlord?: Partial<TUser>;
+  reviews?: TReview[];
   averageRating?: number;
   totalReviews?: number;
-  _count?: {
-    reviews: number;
-  };
-}
+  createdAt: string;
+  updatedAt: string;
+};
 
-export interface IRentalRequest {
+export type TRentalRequest = {
   id: string;
   tenantId: string;
+  tenant?: Partial<TUser>;
   propertyId: string;
+  property?: TProperty;
   rentAmount: number;
   status: RentalRequestStatus;
   createdAt: string;
   updatedAt: string;
-  property?: {
-    id: string;
-    title: string;
-    location: string;
-    price: number;
-    availabilityStatus?: PropertyAvailability;
-    category?: {
-      name: string;
-    };
-    landlord?: {
-      id: string;
-      name: string;
-      email: string;
-    };
-  };
-  tenant?: {
-    id: string;
-    name: string;
-    email: string;
-  };
-}
+};
 
-export interface IPayment {
+export type TPayment = {
   id: string;
   rentalRequestId: string;
+  rentalRequest?: TRentalRequest;
   amount: number;
   currency: string;
   status: PaymentStatus;
@@ -110,43 +92,15 @@ export interface IPayment {
   paidAt?: string | null;
   createdAt: string;
   updatedAt: string;
-  rentalRequest?: {
-    id: string;
-    status: RentalRequestStatus;
-    property?: {
-      id: string;
-      title: string;
-      location: string;
-    };
-    tenant?: {
-      id: string;
-      name: string;
-      email: string;
-    };
-  };
-}
+};
 
-export interface IApiResponse<T> {
-  success: boolean;
-  statusCode?: number;
-  message?: string;
-  data: T;
-  meta?: {
-    page: number;
-    limit: number;
-    total: number;
-  };
-}
-
-export interface GetMeResponse {
-  success: boolean;
-  statusCode?: number;
-  message?: string;
-  data?: {
-    currentUser: IUser;
-  };
-}
-
-export interface NavbarProps {
-  user?: GetMeResponse | null;
-}
+export type TReview = {
+  id: string;
+  rating: number;
+  comment: string;
+  propertyId: string;
+  tenantId: string;
+  tenant?: Partial<TUser>;
+  createdAt: string;
+  updatedAt: string;
+};
