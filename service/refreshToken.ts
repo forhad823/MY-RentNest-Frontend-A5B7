@@ -4,33 +4,39 @@ import { jwtUtils } from "@/utils/jwt";
 import { cookies } from "next/headers";
 
 export const getNewAccessToken = async () => {
-  const cookieStore = await cookies();
+  try {
+    const cookieStore = await cookies();
+    const refreshToken = cookieStore.get("refreshToken")?.value || null;
 
-  const refreshToken = cookieStore.get("refreshToken")?.value || null;
+    if (!refreshToken) {
+      return {
+        success: false,
+        message: "Refresh token not found!",
+      };
+    }
 
-  if (!refreshToken) {
-    // throw new Error("User Not Logged In!");
+    const backendUrl =
+      process.env.BACKEND_API_URL ||
+      process.env.NEXT_PUBLIC_BACKEND_API_URL ||
+      "http://localhost:5000";
 
-    return {
-      success: false,
-      message: "Refresh token not found!",
-    };
-  }
-
-  const res = await fetch(
-    `${process.env.BACKEND_API_URL}/api/auth/refresh-token`,
-    {
+    const res = await fetch(`${backendUrl}/api/auth/refresh-token`, {
       method: "POST",
       headers: {
         Cookie: `refreshToken=${refreshToken}`,
       },
       cache: "no-cache",
-    },
-  );
+    });
 
-  const result = await res.json();
-
-  return result;
+    const result = await res.json();
+    return result;
+  } catch (error) {
+    console.error("RefreshToken error:", error);
+    return {
+      success: false,
+      message: "Failed to refresh token",
+    };
+  }
 };
 
 export const isAccessTokenExist = async () => {
@@ -39,12 +45,7 @@ export const isAccessTokenExist = async () => {
   const refreshToken = cookieStore.get("refreshToken")?.value || null;
 
   if (!accessToken && !refreshToken) {
-    throw new Error("User Not Logged In!");
-
-    // return {
-    //     success: false,
-    //     message: "User not logged in!"
-    // }
+    return null;
   }
 
   const decodedAccessToken = accessToken
@@ -59,10 +60,9 @@ export const isAccessTokenExist = async () => {
     : null;
 
   if (!decodedAccessToken?.success && decodedRefreshToken?.success) {
-    //access token has expired but refresh token is valid, get new access token from backend
     const result = await getNewAccessToken();
 
-    if (result.success) {
+    if (result?.success && result?.data?.accessToken) {
       const newAccessToken = result.data.accessToken;
 
       cookieStore.set("accessToken", newAccessToken, {
