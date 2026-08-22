@@ -1,5 +1,6 @@
 // -------- Server-Side Cookie & Session Management Utilities --------
 import { cookies } from "next/headers";
+import { connection } from "next/server";
 import jwt, { JwtPayload } from "jsonwebtoken";
 import { Role, ActiveStatus } from "./types";
 
@@ -22,9 +23,7 @@ export type TAuthSession = {
 
 // -------- Auth Tokens Retrieval --------
 
-/****
- * Reads accessToken and refreshToken from server-side cookies
- ****/
+/**** Reads accessToken and refreshToken from server-side cookies****/
 export async function getAuthTokens(): Promise<{
   accessToken: string | null;
   refreshToken: string | null;
@@ -41,10 +40,14 @@ export async function getAuthTokens(): Promise<{
 
 // -------- Server Session Parsing --------
 
-/****
- * Parses and verifies accessToken from cookies to return complete server session information
- ****/
+/**** Parses and verifies accessToken from cookies to return complete server session information ****/
 export async function getServerSession(): Promise<TAuthSession> {
+  // -------- Force Request-Time Rendering --------
+  // jwt.verify() reads Date.now() internally to check token expiry,
+  // which is unstable during speculative prerendering. connection()
+  // defers this work until actual request time (Cache Components).
+  await connection();
+
   const { accessToken, refreshToken } = await getAuthTokens();
 
   if (!accessToken) {

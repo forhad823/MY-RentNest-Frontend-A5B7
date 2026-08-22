@@ -8,6 +8,34 @@ import { Skeleton } from "@/components/ui/skeleton";
  * like a dead click.
  ****/
 
+// -------- Navbar Skeleton (session-aware header fallback) --------
+
+export function NavbarSkeleton() {
+  return (
+    <header className="sticky top-0 z-40 w-full border-b bg-background/95">
+      <div className="container flex h-16 items-center justify-between px-4 md:px-8 mx-auto">
+        {/* Brand */}
+        <div className="flex items-center gap-2">
+          <Skeleton className="h-9 w-9 rounded-lg" />
+          <Skeleton className="h-6 w-24" />
+        </div>
+
+        {/* Desktop Links */}
+        <div className="hidden md:flex items-center gap-6">
+          <Skeleton className="h-4 w-14" />
+          <Skeleton className="h-4 w-32" />
+        </div>
+
+        {/* Auth Actions */}
+        <div className="flex items-center gap-2">
+          <Skeleton className="h-9 w-20 rounded-md" />
+          <Skeleton className="h-9 w-9 rounded-full" />
+        </div>
+      </div>
+    </header>
+  );
+}
+
 // -------- Dashboard Skeleton (stats cards + table) --------
 
 export function DashboardSkeleton() {
