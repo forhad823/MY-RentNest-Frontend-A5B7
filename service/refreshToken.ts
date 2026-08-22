@@ -26,6 +26,7 @@ export async function getNewAccessToken(): Promise<TApiResponse<{ accessToken: s
 
     const data = await response.json();
     return data;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
     return {
       success: false,
