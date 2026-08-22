@@ -12,7 +12,7 @@ import {
   ShieldAlert,
   Building,
   Users,
-} from "lucide-react";    
+} from "lucide-react";
 
 import { TAuthUser } from "@/lib/auth-session";
 import { logoutAction } from "@/app/(authGroup)/_actions/authAction";
@@ -66,7 +66,7 @@ export function UserNav({ user }: UserNavProps) {
   const getRoleBadgeColor = () => {
     switch (user.role) {
       case "ADMIN":
-        return "bg-destructive text-destructive-foreground hover:bg-destructive/90";
+        return "bg-destructive text-white hover:bg-destructive/500";
       case "LANDLORD":
         return "bg-amber-500 text-white hover:bg-amber-600 dark:bg-amber-600";
       case "TENANT":
@@ -78,7 +78,10 @@ export function UserNav({ user }: UserNavProps) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="ghost" className="relative h-10 w-10 rounded-full bg-primary/10 border border-primary/20 p-0">
+        <Button
+          variant="ghost"
+          className="relative h-10 w-10 rounded-full bg-primary/10 border border-primary/20 p-0"
+        >
           <UserIcon className="h-5 w-5 text-primary" />
           <span className="sr-only">Open user menu</span>
         </Button>
@@ -87,31 +90,42 @@ export function UserNav({ user }: UserNavProps) {
         <DropdownMenuLabel className="font-normal">
           <div className="flex flex-col space-y-1">
             <div className="flex items-center justify-between">
-              <p className="text-sm font-semibold leading-none">{user.name || "User"}</p>
-              <Badge className={getRoleBadgeColor()}>
-                {user.role}
-              </Badge>
+              <p className="text-white text-sm font-bold leading-none">
+                {user.name || "User"}
+              </p>
+              <Badge className={getRoleBadgeColor()}>{user.role}</Badge>
             </div>
-            <p className="text-xs leading-none text-muted-foreground truncate">{user.email}</p>
+            <p className="text-white text-xs leading-none font-light truncate">
+              {user.email}
+            </p>
           </div>
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
-        
+
         <DropdownMenuGroup>
           {/* Main Dashboard Link */}
-          <DropdownMenuItem onClick={() => router.push(getDashboardPath())} className="cursor-pointer">
-            <LayoutDashboard className="mr-2 h-4 w-4 text-primary" />
+          <DropdownMenuItem
+            onClick={() => router.push(getDashboardPath())}
+            className="cursor-pointer"
+          >
+            <LayoutDashboard className="mr-2 h-4 w-4 text-white" />
             <span>Dashboard Overview</span>
           </DropdownMenuItem>
 
           {/* Role Specific Action Links */}
           {user.role === "TENANT" && (
             <>
-              <DropdownMenuItem onClick={() => router.push("/dashboard/tenant")} className="cursor-pointer">
+              <DropdownMenuItem
+                onClick={() => router.push("/dashboard/tenant")}
+                className="cursor-pointer"
+              >
                 <FileText className="mr-2 h-4 w-4" />
                 <span>My Rental Requests</span>
               </DropdownMenuItem>
-              <DropdownMenuItem onClick={() => router.push("/dashboard/tenant/reviews")} className="cursor-pointer">
+              <DropdownMenuItem
+                onClick={() => router.push("/dashboard/tenant/reviews")}
+                className="cursor-pointer"
+              >
                 <Home className="mr-2 h-4 w-4" />
                 <span>My Property Reviews</span>
               </DropdownMenuItem>
@@ -120,15 +134,26 @@ export function UserNav({ user }: UserNavProps) {
 
           {user.role === "LANDLORD" && (
             <>
-              <DropdownMenuItem onClick={() => router.push("/dashboard/landlord")} className="cursor-pointer">
+              <DropdownMenuItem
+                onClick={() => router.push("/dashboard/landlord")}
+                className="cursor-pointer"
+              >
                 <Building className="mr-2 h-4 w-4" />
                 <span>My Listings</span>
               </DropdownMenuItem>
-              <DropdownMenuItem onClick={() => router.push("/dashboard/landlord/properties/new")} className="cursor-pointer">
+              <DropdownMenuItem
+                onClick={() =>
+                  router.push("/dashboard/landlord/properties/new")
+                }
+                className="cursor-pointer"
+              >
                 <Home className="mr-2 h-4 w-4" />
                 <span>Post New Property</span>
               </DropdownMenuItem>
-              <DropdownMenuItem onClick={() => router.push("/dashboard/landlord/requests")} className="cursor-pointer">
+              <DropdownMenuItem
+                onClick={() => router.push("/dashboard/landlord/requests")}
+                className="cursor-pointer"
+              >
                 <FileText className="mr-2 h-4 w-4" />
                 <span>Incoming Applications</span>
               </DropdownMenuItem>
@@ -137,26 +162,38 @@ export function UserNav({ user }: UserNavProps) {
 
           {user.role === "ADMIN" && (
             <>
-              <DropdownMenuItem onClick={() => router.push("/dashboard/admin/users")} className="cursor-pointer">
+              <DropdownMenuItem
+                onClick={() => router.push("/dashboard/admin/users")}
+                className="cursor-pointer"
+              >
                 <Users className="mr-2 h-4 w-4" />
                 <span>User Management</span>
               </DropdownMenuItem>
-              <DropdownMenuItem onClick={() => router.push("/dashboard/admin/properties")} className="cursor-pointer">
+              <DropdownMenuItem
+                onClick={() => router.push("/dashboard/admin/properties")}
+                className="cursor-pointer"
+              >
                 <Building className="mr-2 h-4 w-4" />
                 <span>Listing Moderation</span>
               </DropdownMenuItem>
-              <DropdownMenuItem onClick={() => router.push("/dashboard/admin/rentals")} className="cursor-pointer">
+              <DropdownMenuItem
+                onClick={() => router.push("/dashboard/admin/rentals")}
+                className="cursor-pointer"
+              >
                 <ShieldAlert className="mr-2 h-4 w-4" />
                 <span>Rental Oversight</span>
               </DropdownMenuItem>
             </>
           )}
         </DropdownMenuGroup>
-        
+
         <DropdownMenuSeparator />
-        
-        <DropdownMenuItem onClick={handleLogout} className="cursor-pointer text-destructive focus:text-destructive">
-          <LogOut className="mr-2 h-4 w-4" />
+
+        <DropdownMenuItem
+          onClick={handleLogout}
+          className="cursor-pointer text-destructive focus:text-destructive"
+        >
+          <LogOut className="mr-2 h-4 w-4 font-extrabold" />
           <span>Log out</span>
         </DropdownMenuItem>
       </DropdownMenuContent>

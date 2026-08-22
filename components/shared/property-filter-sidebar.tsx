@@ -194,15 +194,15 @@ export function PropertyFilterSidebar({
         <Select
           key={`cat-${categoryId}`}
           value={categoryId}
-          onValueChange={(val) => updateParam("categoryId", val)}   
+          onValueChange={(val) => updateParam("categoryId", val)}
         >
           <SelectTrigger className="w-full">
             <SelectValue placeholder="All Categories" />
           </SelectTrigger>
           <SelectContent position="popper">
             <SelectItem value="ALL">All Categories</SelectItem>
-            {categories.map((cat) => (
-              <SelectItem key={cat.id} value={cat.id}>
+            {categories.map((cat, index) => (
+              <SelectItem key={cat.id + index} value={cat.id}>
                 {cat.name}
               </SelectItem>
             ))}
@@ -309,4 +309,3 @@ export function PropertyFilterSidebar({
     </div>
   );
 }
-
