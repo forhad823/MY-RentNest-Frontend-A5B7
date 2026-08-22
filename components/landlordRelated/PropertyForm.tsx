@@ -6,12 +6,22 @@ import { Loader2, AlertCircle, ArrowLeft } from "lucide-react";
 import Link from "next/link";
 import { toast } from "sonner";
 import { TProperty, TCategory, PropertyAvailability } from "@/lib/types";
-import { createProperty, updateProperty, IPropertyPayload } from "@/service/landlord";
+import {
+  createProperty,
+  updateProperty,
+  IPropertyPayload,
+} from "@/service/landlord";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { Checkbox } from "@/components/ui/checkbox";
 
 interface PropertyFormProps {
@@ -34,24 +44,37 @@ const AMENITY_OPTIONS = [
   "Elevator",
 ];
 
-export default function PropertyForm({ initialData, categories }: PropertyFormProps) {
+export default function PropertyForm({
+  initialData,
+  categories,
+}: PropertyFormProps) {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   // Form State
   const [title, setTitle] = useState(initialData?.title || "");
-  const [description, setDescription] = useState(initialData?.description || "");
+
   const [location, setLocation] = useState(initialData?.location || "");
-  const [price, setPrice] = useState(initialData?.price ? String(initialData.price) : "");
-  const [bedroomCount, setBedroomCount] = useState(initialData?.bedroomCount ? String(initialData.bedroomCount) : "");
-  const [bathroomCount, setBathroomCount] = useState(initialData?.bathroomCount ? String(initialData.bathroomCount) : "");
-  const [categoryId, setCategoryId] = useState(initialData?.categoryId || "");
-  const [availabilityStatus, setAvailabilityStatus] = useState<"AVAILABLE" | "RENTED" | "MAINTENANCE">(
-    initialData?.availabilityStatus || "AVAILABLE"
+  const [price, setPrice] = useState(
+    initialData?.price ? String(initialData.price) : "",
   );
-  const [amenities, setAmenities] = useState<string[]>(initialData?.amenities || []);
-  const [imageUrls, setImageUrls] = useState<string>(initialData?.images?.join(", ") || "");
+  const [bedroomCount, setBedroomCount] = useState(
+    initialData?.bedroomCount ? String(initialData.bedroomCount) : "",
+  );
+  const [bathroomCount, setBathroomCount] = useState(
+    initialData?.bathroomCount ? String(initialData.bathroomCount) : "",
+  );
+  const [categoryId, setCategoryId] = useState(initialData?.categoryId || "");
+  const [availabilityStatus, setAvailabilityStatus] = useState<
+    "AVAILABLE" | "RENTED" | "MAINTENANCE"
+  >(initialData?.availabilityStatus || "AVAILABLE");
+  const [amenities, setAmenities] = useState<string[]>(
+    initialData?.amenities || [],
+  );
+  const [imageUrls, setImageUrls] = useState<string>(
+    initialData?.images?.join(", ") || "",
+  );
 
   const handleAmenityChange = (amenity: string, checked: boolean) => {
     if (checked) {
@@ -61,21 +84,30 @@ export default function PropertyForm({ initialData, categories }: PropertyFormPr
     }
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.SubmitEvent) => {
     e.preventDefault();
 
-    if (!title.trim() || !location.trim() || !price || !bedroomCount || !bathroomCount || !categoryId) {
+    if (
+      !title.trim() ||
+      !location.trim() ||
+      !price ||
+      !bedroomCount ||
+      !bathroomCount ||
+      !categoryId
+    ) {
       toast.error("Please fill in all required fields.");
       return;
     }
 
     const parsedImages = imageUrls
-      ? imageUrls.split(",").map((url) => url.trim()).filter((url) => url.length > 0)
+      ? imageUrls
+          .split(",")
+          .map((url) => url.trim())
+          .filter((url) => url.length > 0)
       : [];
 
     const payload: IPropertyPayload = {
       title: title.trim(),
-      description: description.trim() || undefined,
       location: location.trim(),
       price: Number(price),
       bedroomCount: Number(bedroomCount),
@@ -99,13 +131,17 @@ export default function PropertyForm({ initialData, categories }: PropertyFormPr
       }
 
       if (response.success) {
-        toast.success(initialData ? "Property listing updated successfully!" : "Property listed successfully!");
+        toast.success(
+          initialData
+            ? "Property listing updated successfully!"
+            : "Property listed successfully!",
+        );
         router.push("/dashboard/landlord");
         router.refresh();
       } else {
         throw new Error(response.message || "Something went wrong.");
       }
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
       console.error("Property form save error:", err);
       const errMsg = err.message || "An unexpected error occurred.";
@@ -254,22 +290,6 @@ export default function PropertyForm({ initialData, categories }: PropertyFormPr
             onChange={(e) => setBathroomCount(e.target.value)}
             required
             disabled={loading}
-          />
-        </div>
-
-        {/* Description */}
-        <div className="space-y-2 col-span-1 md:col-span-2">
-          <Label htmlFor="description" className="text-sm font-bold">
-            Property Description
-          </Label>
-          <Textarea
-            id="description"
-            rows={4}
-            placeholder="Enter detailed description of the property, guidelines, utility rules..."
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-            disabled={loading}
-            className="resize-none"
           />
         </div>
 

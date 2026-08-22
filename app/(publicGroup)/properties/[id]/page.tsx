@@ -54,9 +54,7 @@ export async function generateMetadata({ params }: PropertyDetailPageProps) {
 
   return {
     title: `${property.title} | RentNest`,
-    description:
-      property.description ||
-      `Explore ${property.title} located at ${property.location}. Monthly rent: $${property.price}.`,
+    description: `Explore ${property.title} located at ${property.location}. Monthly rent: $${property.price}.`,
   };
 }
 
@@ -213,23 +211,6 @@ export default async function PropertyDetailPage({
             </div>
           </div>
 
-          {/* Property Description */}
-          <div className="space-y-3">
-            <h2 className="text-xl font-bold tracking-tight text-foreground flex items-center gap-2">
-              <Info className="h-5 w-5 text-primary" />
-              About This Property
-            </h2>
-            <div className="prose prose-neutral dark:prose-invert max-w-none text-muted-foreground leading-relaxed text-sm md:text-base">
-              {property.description ? (
-                <p className="whitespace-pre-line">{property.description}</p>
-              ) : (
-                <p className="italic text-muted-foreground">
-                  No detailed description provided by the landlord.
-                </p>
-              )}
-            </div>
-          </div>
-
           <Separator />
 
           {/* Amenities Grid */}
@@ -372,7 +353,9 @@ export default async function PropertyDetailPage({
                     className={`text-xs uppercase font-semibold ${
                       isAvailable
                         ? "bg-emerald-600 text-white"
-                        : "bg-rose-600 text-white"
+                        : property.availabilityStatus === "RENTED"
+                          ? "bg-rose-600 text-white"
+                          : "bg-amber-600 text-white"
                     }`}
                   >
                     {property.availabilityStatus}
@@ -433,7 +416,7 @@ export default async function PropertyDetailPage({
                       </Link>
                     </Button>
                   ) : isLandlord || isAdmin ? (
-                    <div className="p-3.5 rounded-xl bg-amber-500/10 border border-amber-500/20 text-xs text-amber-700 dark:text-amber-300">
+                    <div className="p-3.5 rounded-xl bg-amber-500/10 border border-amber-500/20 text-xs text-amber-700 dark:text-amber-700">
                       <p className="font-semibold mb-1">
                         Landlord/Admin Account
                       </p>

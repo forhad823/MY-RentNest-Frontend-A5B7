@@ -4,7 +4,6 @@ import { TApiResponse, TProperty, TRentalRequest } from "@/lib/types";
 
 export interface IPropertyPayload {
   title: string;
-  description?: string;
   location: string;
   price: number;
   bedroomCount: number;

@@ -47,7 +47,6 @@ export type TCategory = {
 export type TProperty = {
   id: string;
   title: string;
-  description?: string;
   location: string;
   price: number;
   bedroomCount: number;

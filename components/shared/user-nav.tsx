@@ -66,9 +66,9 @@ export function UserNav({ user }: UserNavProps) {
   const getRoleBadgeColor = () => {
     switch (user.role) {
       case "ADMIN":
-        return "bg-destructive text-white hover:bg-destructive/500";
+        return "bg-amber-700 text-white hover:bg-destructive/500";
       case "LANDLORD":
-        return "bg-amber-500 text-white hover:bg-amber-600 dark:bg-amber-600";
+        return "bg-violet-700 text-white hover:bg-amber-700 dark:bg-violet-600";
       case "TENANT":
       default:
         return "bg-emerald-600 text-white hover:bg-emerald-700 dark:bg-emerald-600";
