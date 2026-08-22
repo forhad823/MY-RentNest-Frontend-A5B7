@@ -21,7 +21,7 @@ import {
 import { getPropertyById } from "@/service/property";
 import { getServerSession } from "@/lib/auth-session";
 import { PropertyImageGallery } from "@/components/shared/property-image-gallery";
-import { RequestRentalModal } from "@/components/rental/RequestRentalModal";
+import { RequestRentalModal } from "@/components/tenantRelated/RequestRentalModal";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {

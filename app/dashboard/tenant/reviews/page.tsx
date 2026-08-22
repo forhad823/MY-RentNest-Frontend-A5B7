@@ -12,7 +12,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import ReviewForm from "@/components/review/ReviewForm";
+import ReviewForm from "@/components/tenantRelated/ReviewForm";
 
 interface ReviewPageProps {
   searchParams: Promise<{

@@ -10,7 +10,7 @@ import { getPropertyById } from "@/service/property";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
-import CheckoutClient from "@/components/checkout/CheckoutClient";
+import CheckoutClient from "@/components/tenantRelated/CheckoutClient";
 
 
 interface PayPageProps {
