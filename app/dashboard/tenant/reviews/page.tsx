@@ -1,6 +1,6 @@
 // -------- Tenant Review Submission Page Component --------
 import { redirect, notFound } from "next/navigation";
-import { MessageSquare, MapPin, Building, Star } from "lucide-react";
+import { MessageSquare, MapPin, Building, } from "lucide-react";
 
 import { getServerSession } from "@/lib/auth-session";
 import { getPropertyById } from "@/service/property";
