@@ -1,5 +1,4 @@
 // -------- Centralized API Client Wrapper --------
-import { cookies } from "next/headers";
 import { TApiResponse } from "./types";
 
 const BASE_URL =
@@ -20,6 +19,7 @@ export async function apiFetch<T>(
   if (typeof window === "undefined") {
     try {
       // Server environment: forward browser request cookies
+      const { cookies } = await import("next/headers");
       const cookieStore = await cookies();
       cookieHeader = cookieStore.toString();
     } catch {
