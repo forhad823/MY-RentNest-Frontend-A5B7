@@ -82,7 +82,7 @@ export default function RequestsClientTable({ initialRequests }: RequestsClientT
                   </TableCell>
 
                   {/* Property */}
-                  <TableCell className="max-w-[200px]">
+                  <TableCell className="max-w-50">
                     <div className="flex items-center gap-2">
                       <Building className="h-4 w-4 shrink-0 text-muted-foreground opacity-60" />
                       <span className="text-sm font-medium text-foreground truncate">{propTitle}</span>

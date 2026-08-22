@@ -10,7 +10,6 @@ import {
   Clock,
   MapPin,
   PlusCircle,
-  ArrowRight,
 } from "lucide-react";
 
 import { getServerSession } from "@/lib/auth-session";
@@ -184,7 +183,7 @@ export default async function LandlordDashboardPage() {
             <Table>
               <TableHeader>
                 <TableRow className="bg-muted/40">
-                  <TableHead className="w-[300px]">Property</TableHead>
+                  <TableHead className="w-75">Property</TableHead>
                   <TableHead>Location</TableHead>
                   <TableHead>Rent Price</TableHead>
                   <TableHead>Capacity</TableHead>
@@ -215,7 +214,7 @@ export default async function LandlordDashboardPage() {
                       </TableCell>
 
                       {/* Location */}
-                      <TableCell className="text-muted-foreground text-xs max-w-[200px] truncate">
+                      <TableCell className="text-muted-foreground text-xs max-w-50 truncate">
                         <div className="flex items-center gap-1">
                           <MapPin className="h-3.5 w-3.5 shrink-0 opacity-60" />
                           {property.location}

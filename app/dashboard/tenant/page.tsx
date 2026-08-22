@@ -317,7 +317,7 @@ export default async function TenantDashboardPage() {
                 <Table>
                   <TableHeader>
                     <TableRow className="bg-muted/40">
-                      <TableHead className="w-[300px]">Property</TableHead>
+                      <TableHead className="w-75">Property</TableHead>
                       <TableHead>Location</TableHead>
                       <TableHead>Monthly Rent</TableHead>
                       <TableHead>Status</TableHead>
@@ -362,7 +362,7 @@ export default async function TenantDashboardPage() {
                           </TableCell>
 
                           {/* Location */}
-                          <TableCell className="text-muted-foreground text-xs max-w-[180px] truncate">
+                          <TableCell className="text-muted-foreground text-xs max-w-45 truncate">
                             {location}
                           </TableCell>
 
@@ -525,7 +525,7 @@ export default async function TenantDashboardPage() {
                           <TableCell className="font-mono text-xs text-muted-foreground">
                             #{payment.id.slice(0, 8)}
                           </TableCell>
-                          <TableCell className="font-medium text-foreground text-sm max-w-[220px] truncate">
+                          <TableCell className="font-medium text-foreground text-sm max-w-55 truncate">
                             {propTitle}
                           </TableCell>
                           <TableCell className="font-bold text-foreground">

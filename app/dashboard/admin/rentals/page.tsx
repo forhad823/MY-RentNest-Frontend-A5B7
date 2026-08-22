@@ -143,7 +143,7 @@ export default async function AdminRentalsPage() {
                   >
                     {/* Tenant */}
                     <TableCell>
-                      <div className="flex items-center gap-2.5 min-w-[140px]">
+                      <div className="flex items-center gap-2.5 min-w-35">
                         <div className="h-8 w-8 rounded-full bg-sky-500/10 flex items-center justify-center text-sky-600 dark:text-sky-400 shrink-0">
                           <User className="h-4 w-4" />
                         </div>
@@ -154,7 +154,7 @@ export default async function AdminRentalsPage() {
                     </TableCell>
 
                     {/* Property */}
-                    <TableCell className="max-w-[220px]">
+                    <TableCell className="max-w-55">
                       <div className="flex items-center gap-2">
                         <Building className="h-4 w-4 shrink-0 text-muted-foreground opacity-60" />
                         <span className="text-sm font-medium truncate">

@@ -116,7 +116,7 @@ export default function UsersManagementTable({
         </div>
 
         <Select value={roleFilter} onValueChange={setRoleFilter}>
-          <SelectTrigger className="w-full sm:w-[160px] h-9">
+          <SelectTrigger className="w-full sm:w-40 h-9">
             <SelectValue placeholder="Filter by role" />
           </SelectTrigger>
           <SelectContent>
