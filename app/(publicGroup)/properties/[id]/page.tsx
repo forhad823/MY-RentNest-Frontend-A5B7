@@ -12,7 +12,6 @@ import {
   ShieldCheck,
   CalendarCheck,
   ArrowLeft,
-  DollarSign,
   Info,
   Layers,
   Sparkles,

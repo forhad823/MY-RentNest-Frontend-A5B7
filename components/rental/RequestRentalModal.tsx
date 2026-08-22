@@ -132,7 +132,7 @@ export function RequestRentalModal({
               </div>
               <div className="flex justify-between">
                 <span className="text-muted-foreground">Location:</span>
-                <span className="font-medium text-foreground truncate max-w-[200px]">
+                <span className="font-medium text-foreground truncate max-w-50">
                   {property.location}
                 </span>
               </div>

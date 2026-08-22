@@ -32,7 +32,7 @@ export function PropertyImageGallery({
   return (
     <div className="space-y-4">
       {/* Main Large Display Image */}
-      <div className="relative w-full h-80 sm:h-96 md:h-[460px] rounded-2xl bg-muted border overflow-hidden shadow-md">
+      <div className="relative w-full h-80 sm:h-96 md:h-115 rounded-2xl bg-muted border overflow-hidden shadow-md">
         <Image
           src={activeImage!}
           alt={`${title} - photo ${selectedIdx + 1}`}

@@ -13,7 +13,7 @@ export type TRentalActionResponse<T = unknown> = {
   success: boolean;
   message: string;
   data?: T;
-  error?: string;
+  error?: string; 
 };
 
 /****
