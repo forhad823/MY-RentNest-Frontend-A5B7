@@ -5,7 +5,6 @@ import Link from "next/link";
 
 import { getServerSession } from "@/lib/auth-session";
 import { getLandlordRentalRequests } from "@/service/landlord";
-// import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -13,7 +12,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import RequestsClientTable from "../../../../components/landlordRelated/RequestsClientTable";
+import RequestsClientTable from "@/components/landlordRelated/RequestsClientTable";
 
 export const metadata = {
   title: "Rental Applications | RentNest Landlord",

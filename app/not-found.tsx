@@ -1,6 +1,6 @@
 "use client";
 
-import Link from "next/link"; // Change to react-router-dom 'Link' or 'useNavigate' if using Vite/React Router
+import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { AlertCircle, Home, ArrowLeft } from "lucide-react";
 

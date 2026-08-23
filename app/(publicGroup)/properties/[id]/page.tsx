@@ -12,7 +12,6 @@ import {
   ShieldCheck,
   CalendarCheck,
   ArrowLeft,
-  Info,
   Layers,
   Sparkles,
   MessageSquare,
@@ -20,6 +19,7 @@ import {
 
 import { getPropertyById } from "@/service/property";
 import { getServerSession } from "@/lib/auth-session";
+import { getAvailabilityBadgeClass } from "@/lib/badge-styles";
 import { PropertyImageGallery } from "@/components/shared/property-image-gallery";
 import { RequestRentalModal } from "@/components/tenantRelated/RequestRentalModal";
 import { Badge } from "@/components/ui/badge";
@@ -75,7 +75,6 @@ export default async function PropertyDetailPage({
   }
 
   const currentUser = session.user;
-  const isTenant = currentUser?.role === "TENANT";
   const isLandlord = currentUser?.role === "LANDLORD";
   const isAdmin = currentUser?.role === "ADMIN";
   const isOwner = currentUser?.id === property.landlordId;
@@ -115,13 +114,7 @@ export default async function PropertyDetailPage({
         <div className="space-y-1.5">
           <div className="flex flex-wrap items-center gap-2">
             <Badge
-              className={`text-xs uppercase tracking-wider font-semibold ${
-                property.availabilityStatus === "AVAILABLE"
-                  ? "bg-emerald-600 text-white"
-                  : property.availabilityStatus === "RENTED"
-                    ? "bg-rose-600 text-white"
-                    : "bg-amber-600 text-white"
-              }`}
+              className={`text-xs uppercase tracking-wider font-semibold ${getAvailabilityBadgeClass(property.availabilityStatus)}`}
             >
               {property.availabilityStatus}
             </Badge>
@@ -350,13 +343,7 @@ export default async function PropertyDetailPage({
                     </span>
                   </div>
                   <Badge
-                    className={`text-xs uppercase font-semibold ${
-                      isAvailable
-                        ? "bg-emerald-600 text-white"
-                        : property.availabilityStatus === "RENTED"
-                          ? "bg-rose-600 text-white"
-                          : "bg-amber-600 text-white"
-                    }`}
+                    className={`text-xs uppercase font-semibold ${getAvailabilityBadgeClass(property.availabilityStatus)}`}
                   >
                     {property.availabilityStatus}
                   </Badge>

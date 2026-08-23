@@ -1,22 +1,11 @@
 // -------- Next.js 16 Proxy Route Guard --------
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
-import { JwtPayload } from "jsonwebtoken";
-import { jwtUtils } from "./utils/jwt";
-import { getNewAccessToken } from "./service/refreshToken";
-import { Role } from "./lib/types";
-
-interface TDecodedToken extends JwtPayload {
-  role?: Role;
-  id?: string;
-  email?: string;
-  name?: string;
-}
+import { jwtUtils, TDecodedToken } from "@/utils/jwt";
+import { getNewAccessToken } from "@/service/refreshToken";
+import { Role } from "@/lib/types";
 
 const AUTH_ROUTES = ["/login", "/register"];
-// const TENANT_ROUTES = ["/dashboard/tenant"];
-// const LANDLORD_ROUTES = ["/dashboard/landlord"];
-// const ADMIN_ROUTES = ["/dashboard/admin"];
 
 /****
  * Proxy function providing:

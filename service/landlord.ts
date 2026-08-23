@@ -1,6 +1,17 @@
 // -------- Landlord CRUD & Management Services --------
-import { apiGet, apiPost, apiPut, apiDelete, apiPatch } from "@/lib/api-client";
-import { TApiResponse, TProperty, TRentalRequest } from "@/lib/types";
+import {
+  apiGet,
+  apiPost,
+  apiPut,
+  apiDelete,
+  apiPatch,
+} from "@/lib/api-client";
+import {
+  PropertyAvailability,
+  TApiResponse,
+  TProperty,
+  TRentalRequest,
+} from "@/lib/types";
 
 export interface IPropertyPayload {
   title: string;
@@ -9,7 +20,7 @@ export interface IPropertyPayload {
   bedroomCount: number;
   bathroomCount: number;
   amenities: string[];
-  availabilityStatus: "AVAILABLE" | "RENTED" | "MAINTENANCE";
+  availabilityStatus: PropertyAvailability;
   categoryId: string;
   images?: string[];
 }
@@ -71,12 +82,3 @@ export async function updateRentalRequestStatus(
     payload,
   );
 }
-
-export const landlordService = {
-  getLandlordProperties,
-  createProperty,
-  updateProperty,
-  deleteProperty,
-  getLandlordRentalRequests,
-  updateRentalRequestStatus,
-};

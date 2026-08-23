@@ -12,7 +12,7 @@ export function HeroSearchForm() {
   const [searchTerm, setSearchTerm] = useState("");
   const [location, setLocation] = useState("");
 
-  const handleSearch = (e: React.SubmitEvent<HTMLFormElement>) => {
+  const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const params = new URLSearchParams();
     if (searchTerm.trim()) params.set("searchTerm", searchTerm.trim());

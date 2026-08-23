@@ -1,5 +1,5 @@
 // -------- Authentication Service Layer --------
-import { apiGet, apiPost } from "@/lib/api-client";
+import { apiPost } from "@/lib/api-client";
 import { Role, TApiResponse, TUser } from "@/lib/types";
 
 export type TRegisterPayload = {
@@ -34,27 +34,3 @@ export async function loginUser(
 ): Promise<TApiResponse<TAuthTokens>> {
   return apiPost<TAuthTokens>("/api/auth/login", payload);
 }
-
-//  * Retrieves profile information for the currently authenticated user
-
-export async function getCurrentUser(): Promise<
-  TApiResponse<{ currentUser: TUser }>
-> {
-  return apiGet<{ currentUser: TUser }>("/api/auth/me");
-}
-
-//  * Requests a new accessToken using the active refreshToken cookie
-
-export async function refreshToken(): Promise<
-  TApiResponse<{ accessToken: string }>
-> {
-  return apiPost<{ accessToken: string }>("/api/auth/refresh-token");
-}
-
-// -------- Service Export Bundle --------
-export const authService = {
-  registerUser,
-  loginUser,
-  getCurrentUser,
-  refreshToken,
-};

@@ -2,23 +2,10 @@
 
 // -------- Authentication Server Actions --------
 import { cookies } from "next/headers";
-import jwt, { JwtPayload } from "jsonwebtoken";
-import { authService, TLoginPayload, TRegisterPayload } from "@/service/auth";
-import { Role } from "@/lib/types";
-
-interface TDecodedAuthToken extends JwtPayload {
-  id?: string;
-  name?: string;
-  email?: string; 
-  role?: Role;
-}
-
-export type TActionResponse<T = unknown> = {
-  success: boolean;
-  message: string;
-  data?: T;
-  error?: string;
-};
+import jwt from "jsonwebtoken";
+import { registerUser, loginUser, TLoginPayload, TRegisterPayload } from "@/service/auth";
+import { TActionResponse, Role } from "@/lib/types";
+import { TDecodedToken } from "@/utils/jwt";
 
 /****
  * Server action to register a new user with TENANT or LANDLORD role
@@ -27,7 +14,7 @@ export async function registerAction(
   payload: TRegisterPayload
 ): Promise<TActionResponse> {
   try {
-    const response = await authService.registerUser(payload);
+    const response = await registerUser(payload);
     return {
       success: true,
       message: response.message || "User registered successfully.",
@@ -51,7 +38,7 @@ export async function loginAction(
   payload: TLoginPayload
 ): Promise<TActionResponse<{ role?: Role; redirectUrl: string }>> {
   try {
-    const response = await authService.loginUser(payload);
+    const response = await loginUser(payload);
     const { accessToken, refreshToken } = response.data;
 
     const cookieStore = await cookies();
@@ -79,10 +66,10 @@ export async function loginAction(
     let userRole: Role | undefined;
 
     try {
-      const decoded = jwt.verify(accessToken, secret) as TDecodedAuthToken;
+      const decoded = jwt.verify(accessToken, secret) as TDecodedToken;
       userRole = decoded.role;
     } catch {
-      const decoded = jwt.decode(accessToken) as TDecodedAuthToken | null;
+      const decoded = jwt.decode(accessToken) as TDecodedToken | null;
       userRole = decoded?.role;
     }
 
@@ -130,28 +117,6 @@ export async function logoutAction(): Promise<TActionResponse> {
   } catch (error: unknown) {
     const errMessage =
       error instanceof Error ? error.message : "Failed to log out.";
-    return { 
-      success: false,
-      message: errMessage,
-      error: errMessage,
-    };
-  }
-}
-
-/****
- * Server action to fetch current authenticated user profile from backend
- ****/
-export async function getCurrentUserAction(): Promise<TActionResponse> {
-  try {
-    const response = await authService.getCurrentUser();
-    return {
-      success: true,
-      message: response.message || "User profile retrieved successfully.",
-      data: response.data.currentUser,
-    };
-  } catch (error: unknown) {
-    const errMessage =
-      error instanceof Error ? error.message : "Failed to retrieve user profile.";
     return {
       success: false,
       message: errMessage,

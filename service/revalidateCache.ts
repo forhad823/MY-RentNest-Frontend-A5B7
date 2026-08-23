@@ -10,5 +10,6 @@ export const revalidatePropertiesCache = async () => {
   revalidatePath("/properties");
 };
 
+// have a plan to add other revalidateCache function for other data retrieval components
 
 

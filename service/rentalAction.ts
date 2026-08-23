@@ -1,29 +1,20 @@
 "use server";
 
 // -------- Rental Request Server Actions --------
-import { TRentalRequest } from "@/lib/types";
-import { submitRentalRequest as submitRentalRequestService } from "@/service/rental";
-
-export interface ISubmitRentalRequestPayload {
-  propertyId: string;
-  rentAmount: number;
-}
-
-export type TRentalActionResponse<T = unknown> = {
-  success: boolean;
-  message: string;
-  data?: T;
-  error?: string; 
-};
+import { TActionResponse, TRentalRequest } from "@/lib/types";
+import {
+  submitRentalRequest,
+  ISubmitRentalRequestPayload,
+} from "@/service/rental";
 
 /****
  * Server action to submit a rental application for a property
  ****/
 export async function submitRentalRequestAction(
   payload: ISubmitRentalRequestPayload,
-): Promise<TRentalActionResponse<TRentalRequest>> {
+): Promise<TActionResponse<TRentalRequest>> {
   try {
-    const res = await submitRentalRequestService(payload);
+    const res = await submitRentalRequest(payload);
     return {
       success: res.success,
       message: res.message || "Rental request submitted successfully",

@@ -13,7 +13,3 @@ export async function submitReview(
 ): Promise<TApiResponse<TReview>> {
   return await apiPost<TReview>("/api/reviews", payload);
 }
-
-export const reviewService = {
-  submitReview,
-};

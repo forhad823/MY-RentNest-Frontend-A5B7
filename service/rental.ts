@@ -31,9 +31,3 @@ export async function getRentalRequestById(
 ): Promise<TApiResponse<TRentalRequest>> {
   return await apiGet<TRentalRequest>(`/api/rentals/${rentalReqId}`);
 }
-
-export const rentalService = {
-  submitRentalRequest,
-  getRentalRequests,
-  getRentalRequestById,
-};

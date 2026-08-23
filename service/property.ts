@@ -108,9 +108,3 @@ export async function getPropertyById(
     };
   }
 }
-
-export const propertyService = {
-  getCategories,
-  getProperties,
-  getPropertyById,
-};

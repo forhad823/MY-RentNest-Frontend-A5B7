@@ -63,13 +63,5 @@ export async function getAllRentals(): Promise<
 > {
   return await apiGet<TRentalRequest[]>("/api/admin/rentals", {
     next: { revalidate: 0 },
-    cache: "no-store",
   });
 }
-
-export const adminService = {
-  getAllUsers,
-  updateUserStatus,
-  getAllProperties,
-  getAllRentals,
-};

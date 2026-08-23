@@ -112,15 +112,6 @@ export function PropertyGridSkeleton() {
   );
 }
 
-// ------ Category list Skeleton -------
-export function CategorySkeleton() {
-  return (
-    <div className="p-16 text-center animate-pulse text-muted-foreground">
-      Loading categories...
-    </div>
-  );
-}
-
 // -------- Single Property Detail Skeleton --------
 
 export function PropertyDetailSkeleton() {

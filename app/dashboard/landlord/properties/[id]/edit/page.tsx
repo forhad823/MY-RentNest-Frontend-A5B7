@@ -11,7 +11,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import PropertyForm from "../../../../../../components/landlordRelated/PropertyForm";
+import PropertyForm from "@/components/landlordRelated/PropertyForm";
 
 interface EditPropertyPageProps {
   params: Promise<{

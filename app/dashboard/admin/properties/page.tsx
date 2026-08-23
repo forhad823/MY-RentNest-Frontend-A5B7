@@ -5,6 +5,7 @@ import { Building2, Eye, MapPin, User } from "lucide-react";
 
 import { getServerSession } from "@/lib/auth-session";
 import { getAllProperties } from "@/service/admin";
+import { getAvailabilityBadgeClass } from "@/lib/badge-styles";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -120,13 +121,7 @@ export default async function AdminPropertiesPage() {
                     <TableCell>
                       <Badge
                         variant="outline"
-                        className={`font-semibold ${
-                          property.availabilityStatus === "AVAILABLE"
-                            ? "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/30"
-                            : property.availabilityStatus === "RENTED"
-                              ? "bg-rose-500/10 text-rose-600 dark:text-rose-400 border-rose-500/30"
-                              : "bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/30"
-                        }`}
+                        className={`font-semibold ${getAvailabilityBadgeClass(property.availabilityStatus, "soft")}`}
                       >
                         {property.availabilityStatus}
                       </Badge>

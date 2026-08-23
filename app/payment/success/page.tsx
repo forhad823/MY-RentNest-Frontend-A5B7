@@ -1,6 +1,6 @@
 // -------- Payment Success Callback Page Component --------
 import Link from "next/link";
-import { CheckCircle2, ShieldCheck, ArrowRight, FileText } from "lucide-react";
+import { CheckCircle2, ShieldCheck, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 

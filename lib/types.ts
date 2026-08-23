@@ -25,6 +25,16 @@ export type TApiResponse<T> = {
   meta?: TMeta;
 };
 
+// -------- Server Action Response Envelope --------
+// Standard shape every "use server" action returns to client components,
+// so UI code can always rely on success/message/data/error fields.
+export type TActionResponse<T = unknown> = {
+  success: boolean;
+  message: string;
+  data?: T;
+  error?: string;
+};
+
 // -----------------------
 export type TUser = {
   id: string;

@@ -1,6 +1,6 @@
 // -------- Login Page Entry --------
 import { Suspense } from "react";
-import { LoginForm } from "../_components/LoginForm";
+import { LoginForm } from "@/app/(authGroup)/_components/LoginForm";
 import { Loader2 } from "lucide-react";
 
 export const metadata = {

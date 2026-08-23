@@ -6,12 +6,10 @@ import { CreditCard,  MapPin, AlertTriangle } from "lucide-react";
 import { getServerSession } from "@/lib/auth-session";
 import { getRentalRequestById } from "@/service/rental";
 import { getPropertyById } from "@/service/property";
-// import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import CheckoutClient from "@/components/tenantRelated/CheckoutClient";
-
 
 interface PayPageProps {
   params: Promise<{
@@ -158,11 +156,9 @@ export default async function PayPage({ params }: PayPageProps) {
               <Separator className="my-2" />
 
               {/* Checkout Client Integration Button and Alerts */}
-              <CheckoutClient 
-                rentalRequestId={rentalRequest.id} 
-                rentAmount={rentalRequest.rentAmount} 
-                propertyTitle={property?.title || ""}
-                propertyLocation={property?.location || ""}
+              <CheckoutClient
+                rentalRequestId={rentalRequest.id}
+                rentAmount={rentalRequest.rentAmount}
               />
             </CardContent>
           </Card>

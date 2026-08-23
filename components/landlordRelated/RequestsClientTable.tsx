@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { Check, X, Loader2, User, Building, AlertCircle } from "lucide-react";
 import { toast } from "sonner";
 import { TRentalRequest } from "@/lib/types";
+import { getRentalRequestBadgeClass } from "@/lib/badge-styles";
 import { updateRentalRequestStatus } from "@/service/landlord";
 import { Button } from "@/components/ui/button";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
@@ -99,15 +100,7 @@ export default function RequestsClientTable({ initialRequests }: RequestsClientT
                   <TableCell>
                     <Badge
                       variant="outline"
-                      className={`font-semibold text-xs ${
-                        request.status === "PENDING"
-                          ? "bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/30"
-                          : request.status === "APPROVED"
-                          ? "bg-blue-500/10 text-blue-600 dark:text-blue-400 border-blue-500/30"
-                          : request.status === "ACTIVE"
-                          ? "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/30"
-                          : "bg-rose-500/10 text-rose-600 dark:text-rose-400 border-rose-500/30"
-                      }`}
+                      className={`font-semibold text-xs ${getRentalRequestBadgeClass(request.status)}`}
                     >
                       {request.status === "PENDING"
                         ? "Pending Approval"

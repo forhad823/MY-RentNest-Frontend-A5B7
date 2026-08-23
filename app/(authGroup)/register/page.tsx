@@ -1,6 +1,6 @@
 // -------- Registration Page Entry --------
 import { Suspense } from "react";
-import { RegisterForm } from "../_components/RegisterForm";
+import { RegisterForm } from "@/app/(authGroup)/_components/RegisterForm";
 import { Loader2 } from "lucide-react";
 
 export const metadata = {

@@ -1,5 +1,14 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import jwt from "jsonwebtoken";
+import jwt, { JwtPayload } from "jsonwebtoken";
+import { Role } from "@/lib/types";
+
+// -------- Shape of our backend's JWT payload --------
+export interface TDecodedToken extends JwtPayload {
+  id?: string;
+  name?: string;
+  email?: string;
+  role?: Role;
+}
 
 const verifyToken = (token: string, secret: string) => {
   try {
@@ -9,7 +18,6 @@ const verifyToken = (token: string, secret: string) => {
       data: verifiedToken,
     };
   } catch (error: any) {
-    console.log("Token verification failed:", error);
     return {
       success: false,
       error: error.message,

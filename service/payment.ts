@@ -40,9 +40,3 @@ export async function getPaymentById(
     next: { revalidate: 0 },
   });
 }
-
-export const paymentService = {
-  createCheckoutSession,
-  getPayments,
-  getPaymentById,
-};

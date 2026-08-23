@@ -13,6 +13,7 @@ import {
 } from "lucide-react";
 
 import { getCategories, getProperties } from "@/service/property";
+import { getAvailabilityBadgeClass } from "@/lib/badge-styles";
 import { PropertyFilterSidebar } from "@/components/shared/property-filter-sidebar";
 import { PaginationControls } from "@/components/shared/pagination-controls";
 import { Button } from "@/components/ui/button";
@@ -99,9 +100,6 @@ export default async function PropertiesPage({
   ]);
 
   const categories = categoriesRes.data || [];
-  // ---------------?? -----
-  // console.log("Categories in PropertiesPage:", categories);
-  //[ { name: 'apartment' }, { name: 'house' }, { name: 'studio' } ]
   const properties = propertiesRes.data || [];
   const meta = propertiesRes.meta || {
     page: queryFilters.page,
@@ -196,13 +194,7 @@ export default async function PropertiesPage({
                         </div>
                       )}
                       <Badge
-                        className={`absolute top-3 right-3 text-xs uppercase tracking-wider font-semibold ${
-                          property.availabilityStatus === "AVAILABLE"
-                            ? "bg-emerald-600 text-white"
-                            : property.availabilityStatus === "RENTED"
-                              ? "bg-rose-600 text-white"
-                              : "bg-amber-600 text-white"
-                        }`}
+                        className={`absolute top-3 right-3 text-xs uppercase tracking-wider font-semibold ${getAvailabilityBadgeClass(property.availabilityStatus)}`}
                       >
                         {property.availabilityStatus}
                       </Badge>

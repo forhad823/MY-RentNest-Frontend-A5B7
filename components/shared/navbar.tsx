@@ -7,10 +7,7 @@ import { usePathname } from "next/navigation";
 import {
   Home,
   Menu,
-  Building,
   PlusCircle,
-  FileText,
-  Shield,
   LogIn,
   UserPlus,
 } from "lucide-react";

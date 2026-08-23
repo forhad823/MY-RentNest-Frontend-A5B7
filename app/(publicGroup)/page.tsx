@@ -12,6 +12,7 @@ import {
 } from "lucide-react";
 
 import { getCategories, getProperties } from "@/service/property";
+import { getAvailabilityBadgeClass } from "@/lib/badge-styles";
 import { HeroSearchForm } from "@/components/shared/hero-search";
 import { Button } from "@/components/ui/button";
 import {
@@ -41,9 +42,7 @@ export default async function LandingPage() {
 
   const categories = categoriesRes.data || [];
   const featuredProperties = propertiesRes.data || [];
-  // featuredProperties.map((property) => {
-  //   console.log("propertyImage:", property.images?.[0]);
-  // });
+
   return (
     <div className="flex flex-col min-h-screen">
       {/* -------- Hero Section -------- */}
@@ -175,7 +174,6 @@ export default async function LandingPage() {
             </div>
 
             {featuredProperties.length > 0 ? (
-              // <Suspense fallback={<PropertyGridSkeleton />}>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 {featuredProperties.map((property, index) => (
                   <Card
@@ -200,19 +198,9 @@ export default async function LandingPage() {
                           unoptimized
                           className="object-cover transition-transform duration-500 hover:scale-105"
                         />
-                        // <div className="flex flex-col items-center justify-center h-full text-muted-foreground bg-muted">
-                        //   <Home className="h-10 w-10 mb-2 opacity-40" />
-                        //   <span className="text-xs">No image uploaded</span>
-                        // </div>
                       )}
                       <Badge
-                        className={`absolute top-3 right-3 text-xs uppercase tracking-wider font-semibold ${
-                          property.availabilityStatus === "AVAILABLE"
-                            ? "bg-emerald-600 text-white"
-                            : property.availabilityStatus === "RENTED"
-                              ? "bg-rose-600 text-white"
-                              : "bg-amber-600 text-white"
-                        }`}
+                        className={`absolute top-3 right-3 text-xs uppercase tracking-wider font-semibold ${getAvailabilityBadgeClass(property.availabilityStatus)}`}
                       >
                         {property.availabilityStatus}
                       </Badge>
@@ -266,7 +254,6 @@ export default async function LandingPage() {
                 ))}
               </div>
             ) : (
-              // </Suspense>
               <div className="text-center py-16 border rounded-2xl bg-muted/10">
                 <Search className="h-12 w-12 text-muted-foreground mx-auto mb-3 opacity-40" />
                 <p className="text-lg font-medium text-foreground">

@@ -10,7 +10,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import UsersManagementTable from "../../../../components/adminRelated/UsersManagementTable";
+import UsersManagementTable from "@/components/adminRelated/UsersManagementTable";
 
 export const metadata = {
   title: "User Management | RentNest Admin",

@@ -10,15 +10,11 @@ import { Button } from "@/components/ui/button";
 interface CheckoutClientProps {
   rentalRequestId: string;
   rentAmount: number;
-  propertyTitle: string;
-  propertyLocation: string;
 }
 
 export default function CheckoutClient({
   rentalRequestId,
   rentAmount,
-  // propertyTitle,
-  // propertyLocation,
 }: CheckoutClientProps) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);

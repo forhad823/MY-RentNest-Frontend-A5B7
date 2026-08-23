@@ -19,7 +19,11 @@ import { getServerSession } from "@/lib/auth-session";
 import { getRentalRequests } from "@/service/rental";
 import { getPayments } from "@/service/payment";
 import { getPropertyById } from "@/service/property";
-import { TRentalRequest, TPayment, RentalRequestStatus } from "@/lib/types";
+import {
+  getRentalRequestBadgeClass,
+  getPaymentBadgeClass,
+} from "@/lib/badge-styles";
+import { TRentalRequest, TPayment, RentalRequestStatus, PaymentStatus } from "@/lib/types";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -46,43 +50,33 @@ export const metadata = {
 
 /***** Helper to render color-coded status badges for rental requests ****/
 function RequestStatusBadge({ status }: { status: RentalRequestStatus }) {
+  const badgeClass = `${getRentalRequestBadgeClass(status)} gap-1 font-semibold`;
+
   switch (status) {
     case "PENDING":
       return (
-        <Badge
-          variant="outline"
-          className="bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/30 gap-1 font-semibold"
-        >
+        <Badge variant="outline" className={badgeClass}>
           <Clock className="h-3 w-3" />
           Pending Approval
         </Badge>
       );
     case "APPROVED":
       return (
-        <Badge
-          variant="outline"
-          className="bg-blue-500/10 text-blue-600 dark:text-blue-400 border-blue-500/30 gap-1 font-semibold"
-        >
+        <Badge variant="outline" className={badgeClass}>
           <CheckCircle2 className="h-3 w-3" />
           Approved & Ready to Pay
         </Badge>
       );
     case "ACTIVE":
       return (
-        <Badge
-          variant="outline"
-          className="bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/30 gap-1 font-semibold"
-        >
+        <Badge variant="outline" className={badgeClass}>
           <ShieldCheck className="h-3 w-3" />
           Active Rental
         </Badge>
       );
     case "REJECTED":
       return (
-        <Badge
-          variant="outline"
-          className="bg-rose-500/10 text-rose-600 dark:text-rose-400 border-rose-500/30 gap-1 font-semibold"
-        >
+        <Badge variant="outline" className={badgeClass}>
           <XCircle className="h-3 w-3" />
           Declined
         </Badge>
@@ -93,13 +87,13 @@ function RequestStatusBadge({ status }: { status: RentalRequestStatus }) {
 }
 
 /***** Helper to render payment status badges****/
-function PaymentStatusBadge({ status }: { status: string }) {
+function PaymentStatusBadge({ status }: { status: PaymentStatus }) {
   switch (status) {
     case "COMPLETED":
       return (
         <Badge
           variant="outline"
-          className="bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/30 font-semibold"
+          className={`${getPaymentBadgeClass(status)} font-semibold`}
         >
           Completed
         </Badge>
@@ -108,7 +102,7 @@ function PaymentStatusBadge({ status }: { status: string }) {
       return (
         <Badge
           variant="outline"
-          className="bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/30 font-semibold"
+          className={`${getPaymentBadgeClass(status)} font-semibold`}
         >
           Pending
         </Badge>
@@ -117,7 +111,7 @@ function PaymentStatusBadge({ status }: { status: string }) {
       return (
         <Badge
           variant="outline"
-          className="bg-rose-500/10 text-rose-600 dark:text-rose-400 border-rose-500/30 font-semibold"
+          className={`${getPaymentBadgeClass(status)} font-semibold`}
         >
           Failed
         </Badge>

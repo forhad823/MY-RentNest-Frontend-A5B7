@@ -12,6 +12,7 @@ import {
 
 import { getServerSession } from "@/lib/auth-session";
 import { getAllRentals } from "@/service/admin";
+import { getRentalRequestBadgeClass } from "@/lib/badge-styles";
 import type { RentalRequestStatus } from "@/lib/types";
 import { Badge } from "@/components/ui/badge";
 import {
@@ -38,43 +39,33 @@ export const metadata = {
 
 /***** Helper to render color-coded status badges for rental requests ****/
 function RequestStatusBadge({ status }: { status: RentalRequestStatus }) {
+  const badgeClass = `${getRentalRequestBadgeClass(status)} gap-1 font-semibold`;
+
   switch (status) {
     case "PENDING":
       return (
-        <Badge
-          variant="outline"
-          className="bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/30 gap-1 font-semibold"
-        >
+        <Badge variant="outline" className={badgeClass}>
           <Clock className="h-3 w-3" />
           Pending
         </Badge>
       );
     case "APPROVED":
       return (
-        <Badge
-          variant="outline"
-          className="bg-blue-500/10 text-blue-600 dark:text-blue-400 border-blue-500/30 gap-1 font-semibold"
-        >
+        <Badge variant="outline" className={badgeClass}>
           <CheckCircle2 className="h-3 w-3" />
           Approved
         </Badge>
       );
     case "ACTIVE":
       return (
-        <Badge
-          variant="outline"
-          className="bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/30 gap-1 font-semibold"
-        >
+        <Badge variant="outline" className={badgeClass}>
           <ShieldCheck className="h-3 w-3" />
           Active Lease
         </Badge>
       );
     case "REJECTED":
       return (
-        <Badge
-          variant="outline"
-          className="bg-rose-500/10 text-rose-600 dark:text-rose-400 border-rose-500/30 gap-1 font-semibold"
-        >
+        <Badge variant="outline" className={badgeClass}>
           <AlertCircle className="h-3 w-3" />
           Rejected
         </Badge>

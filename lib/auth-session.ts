@@ -98,28 +98,3 @@ export async function getServerSession(): Promise<TAuthSession> {
   }
 }
 
-// -------- Shorthand Session Helpers --------
-
-/****
- * Retrieves the currently logged-in user payload from server cookies
- ****/
-export async function getCurrentUser(): Promise<TAuthUser | null> {
-  const session = await getServerSession();
-  return session.user;
-}
-
-/****
- * Retrieves the role of the currently logged-in user
- ****/
-export async function getUserRole(): Promise<Role | null> {
-  const session = await getServerSession();
-  return session.user?.role || null;
-}
-
-/****
- * Checks if the current request is from an authenticated user
- ****/
-export async function isAuthenticated(): Promise<boolean> {
-  const session = await getServerSession();
-  return session.isAuthenticated;
-}
