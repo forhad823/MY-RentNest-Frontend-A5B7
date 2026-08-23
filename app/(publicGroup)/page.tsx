@@ -22,6 +22,8 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Suspense } from "react";
+import { PropertyGridSkeleton } from "@/components/shared/page-skeletons";
 
 export const instant = false;
 
@@ -88,192 +90,196 @@ export default async function LandingPage() {
         </div>
       </section>
 
-      {/* -------- Category Selector Grid -------- */}
-      <section className="py-16 bg-muted/20 border-y border-border/40">
-        <div className="container mx-auto px-4 md:px-8">
-          <div className="flex flex-col md:flex-row md:items-end justify-between mb-10">
-            <div>
-              <h2 className="text-3xl font-bold tracking-tight text-foreground">
-                Browse Property Categories
-              </h2>
-              <p className="text-muted-foreground mt-2">
-                Filter homes by your preferred style and accommodation type
-              </p>
-            </div>
-            <Button
-              asChild
-              variant="ghost"
-              className="mt-4 md:mt-0 text-primary hover:text-primary/90 font-medium"
-            >
-              <Link href="/properties">
-                Explore All Categories <ArrowRight className="ml-2 h-4 w-4" />
-              </Link>
-            </Button>
-          </div>
-
-          {categories.length > 0 ? (
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-              {categories.map((category, index) => (
-                <Link
-                  key={category.id || `cat-${index}`}
-                  href={`/properties?categoryId=${category.id}`}
-                  className="group"
-                >
-                  <Card className="h-full transition-all duration-300 hover:shadow-lg hover:border-primary/50 group-hover:-translate-y-1">
-                    <CardHeader className="flex flex-row items-center space-x-4 pb-2">
-                      <div className="p-3 rounded-xl bg-primary/10 text-primary group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
-                        <Building2 className="h-6 w-6" />
-                      </div>
-                      <div>
-                        <CardTitle className="text-lg font-bold group-hover:text-primary transition-colors">
-                          {category.name}
-                        </CardTitle>
-                      </div>
-                    </CardHeader>
-                    <CardContent>
-                      <p className="text-xs text-muted-foreground line-clamp-2">
-                        {category.description ||
-                          `Find verified ${category.name.toLowerCase()} rentals available now.`}
-                      </p>
-                    </CardContent>
-                  </Card>
+      <Suspense fallback={<PropertyGridSkeleton />}>
+        {/* -------- Category Selector Grid -------- */}
+        <section className="py-16 bg-muted/20 border-y border-border/40">
+          <div className="container mx-auto px-4 md:px-8">
+            <div className="flex flex-col md:flex-row md:items-end justify-between mb-10">
+              <div>
+                <h2 className="text-3xl font-bold tracking-tight text-foreground">
+                  Browse Property Categories
+                </h2>
+                <p className="text-muted-foreground mt-2">
+                  Filter homes by your preferred style and accommodation type
+                </p>
+              </div>
+              <Button
+                asChild
+                variant="ghost"
+                className="mt-4 md:mt-0 text-primary hover:text-primary/90 font-medium"
+              >
+                <Link href="/properties">
+                  Explore All Categories <ArrowRight className="ml-2 h-4 w-4" />
                 </Link>
-              ))}
+              </Button>
             </div>
-          ) : (
-            <div className="text-center py-10 text-muted-foreground">
-              No categories available at the moment.
-            </div>
-          )}
-        </div>
-      </section>
 
-      {/* -------- Featured Rental Properties List -------- */}
-      <section className="py-16">
-        <div className="container mx-auto px-4 md:px-8">
-          <div className="flex flex-col md:flex-row md:items-end justify-between mb-10">
-            <div>
-              <h2 className="text-3xl font-bold tracking-tight text-foreground">
-                Featured Rental Properties
-              </h2>
-              <p className="text-muted-foreground mt-2">
-                Hand-picked top rated homes available for immediate lease
-              </p>
-            </div>
-            <Button asChild variant="outline" className="mt-4 md:mt-0">
-              <Link href="/properties">
-                View All{" "}
-                {propertiesRes.meta?.total
-                  ? `(${propertiesRes.meta.total})`
-                  : ""}{" "}
-                Properties
-              </Link>
-            </Button>
+            {categories.length > 0 ? (
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                {categories.map((category, index) => (
+                  <Link
+                    key={category.id || `cat-${index}`}
+                    href={`/properties?categoryId=${category.id}`}
+                    className="group"
+                  >
+                    <Card className="h-full transition-all duration-300 hover:shadow-lg hover:border-primary/50 group-hover:-translate-y-1">
+                      <CardHeader className="flex flex-row items-center space-x-4 pb-2">
+                        <div className="p-3 rounded-xl bg-primary/10 text-primary group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
+                          <Building2 className="h-6 w-6" />
+                        </div>
+                        <div>
+                          <CardTitle className="text-lg font-bold group-hover:text-primary transition-colors">
+                            {category.name}
+                          </CardTitle>
+                        </div>
+                      </CardHeader>
+                      <CardContent>
+                        <p className="text-xs text-muted-foreground line-clamp-2">
+                          {category.description ||
+                            `Find verified ${category.name.toLowerCase()} rentals available now.`}
+                        </p>
+                      </CardContent>
+                    </Card>
+                  </Link>
+                ))}
+              </div>
+            ) : (
+              <div className="text-center py-10 text-muted-foreground">
+                No categories available at the moment.
+              </div>
+            )}
           </div>
+        </section>
+        {/* -------- Featured Rental Properties List -------- */}
 
-          {featuredProperties.length > 0 ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {featuredProperties.map((property, index) => (
-                <Card
-                  key={property.id || `prop-${index}`}
-                  className="flex flex-col h-full overflow-hidden transition-all duration-300 hover:shadow-xl border"
-                >
-                  {/* Property Image Thumbnail */}
-                  <div className="relative h-56 w-full bg-muted overflow-hidden">
-                    {property.images && property.images.length > 0 ? (
-                      <Image
-                        src={property.images[0]}
-                        alt={property.title}
-                        fill
-                        unoptimized
-                        className="object-cover transition-transform duration-500 hover:scale-105"
-                      />
-                    ) : (
-                      <Image
-                        src="https://i.postimg.cc/6Q0BQyCS/house-image-1.jpg"
-                        alt={property.title}
-                        fill
-                        unoptimized
-                        className="object-cover transition-transform duration-500 hover:scale-105"
-                      />
-                      // <div className="flex flex-col items-center justify-center h-full text-muted-foreground bg-muted">
-                      //   <Home className="h-10 w-10 mb-2 opacity-40" />
-                      //   <span className="text-xs">No image uploaded</span>
-                      // </div>
-                    )}
-                    <Badge
-                      className={`absolute top-3 right-3 text-xs uppercase tracking-wider font-semibold ${
-                        property.availabilityStatus === "AVAILABLE"
-                          ? "bg-emerald-600 text-white"
-                          : property.availabilityStatus === "RENTED"
-                            ? "bg-rose-600 text-white"
-                            : "bg-amber-600 text-white"
-                      }`}
-                    >
-                      {property.availabilityStatus}
-                    </Badge>
-                  </div>
-
-                  <CardHeader className="pb-2">
-                    <div className="flex items-center text-xs text-muted-foreground mb-1 gap-1">
-                      <MapPin className="h-3.5 w-3.5 text-primary shrink-0" />
-                      <span className="truncate">{property.location}</span>
-                    </div>
-                    <CardTitle className="text-lg font-bold line-clamp-1">
-                      {property.title}
-                    </CardTitle>
-                  </CardHeader>
-
-                  <CardContent className="flex-1 space-y-4">
-                    {/* Specs Badges */}
-                    <div className="flex items-center gap-4 text-xs text-muted-foreground pt-1 border-t">
-                      <div className="flex items-center gap-1">
-                        <Bed className="h-4 w-4 text-primary" />
-                        <span>{property.bedroomCount} Beds</span>
-                      </div>
-                      <div className="flex items-center gap-1">
-                        <Bath className="h-4 w-4 text-primary" />
-                        <span>{property.bathroomCount} Baths</span>
-                      </div>
-                    </div>
-
-                    {/* Price Tag */}
-                    <div className="flex items-baseline justify-between pt-2">
-                      <div>
-                        <span className="text-2xl font-extrabold text-primary">
-                          ${property.price}
-                        </span>
-                        <span className="text-xs text-muted-foreground">
-                          {" "}
-                          / month
-                        </span>
-                      </div>
-                    </div>
-                  </CardContent>
-
-                  <CardFooter className="pt-0 pb-6 px-6">
-                    <Button asChild className="w-full font-medium">
-                      <Link href={`/properties/${property.id}`}>
-                        View Details & Apply
-                      </Link>
-                    </Button>
-                  </CardFooter>
-                </Card>
-              ))}
+        <section className="py-16">
+          <div className="container mx-auto px-4 md:px-8">
+            <div className="flex flex-col md:flex-row md:items-end justify-between mb-10">
+              <div>
+                <h2 className="text-3xl font-bold tracking-tight text-foreground">
+                  Featured Rental Properties
+                </h2>
+                <p className="text-muted-foreground mt-2">
+                  Hand-picked top rated homes available for immediate lease
+                </p>
+              </div>
+              <Button asChild variant="outline" className="mt-4 md:mt-0">
+                <Link href="/properties">
+                  View All{" "}
+                  {propertiesRes.meta?.total
+                    ? `(${propertiesRes.meta.total})`
+                    : ""}{" "}
+                  Properties
+                </Link>
+              </Button>
             </div>
-          ) : (
-            <div className="text-center py-16 border rounded-2xl bg-muted/10">
-              <Search className="h-12 w-12 text-muted-foreground mx-auto mb-3 opacity-40" />
-              <p className="text-lg font-medium text-foreground">
-                No properties found
-              </p>
-              <p className="text-sm text-muted-foreground mt-1">
-                Check back later or explore our categories.
-              </p>
-            </div>
-          )}
-        </div>
-      </section>
+
+            {featuredProperties.length > 0 ? (
+              // <Suspense fallback={<PropertyGridSkeleton />}>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {featuredProperties.map((property, index) => (
+                  <Card
+                    key={property.id || `prop-${index}`}
+                    className="flex flex-col h-full overflow-hidden transition-all duration-300 hover:shadow-xl border"
+                  >
+                    {/* Property Image Thumbnail */}
+                    <div className="relative h-56 w-full bg-muted overflow-hidden">
+                      {property.images && property.images.length > 0 ? (
+                        <Image
+                          src={property.images[0]}
+                          alt={property.title}
+                          fill
+                          unoptimized
+                          className="object-cover transition-transform duration-500 hover:scale-105"
+                        />
+                      ) : (
+                        <Image
+                          src="https://i.postimg.cc/6Q0BQyCS/house-image-1.jpg"
+                          alt={property.title}
+                          fill
+                          unoptimized
+                          className="object-cover transition-transform duration-500 hover:scale-105"
+                        />
+                        // <div className="flex flex-col items-center justify-center h-full text-muted-foreground bg-muted">
+                        //   <Home className="h-10 w-10 mb-2 opacity-40" />
+                        //   <span className="text-xs">No image uploaded</span>
+                        // </div>
+                      )}
+                      <Badge
+                        className={`absolute top-3 right-3 text-xs uppercase tracking-wider font-semibold ${
+                          property.availabilityStatus === "AVAILABLE"
+                            ? "bg-emerald-600 text-white"
+                            : property.availabilityStatus === "RENTED"
+                              ? "bg-rose-600 text-white"
+                              : "bg-amber-600 text-white"
+                        }`}
+                      >
+                        {property.availabilityStatus}
+                      </Badge>
+                    </div>
+
+                    <CardHeader className="pb-2">
+                      <div className="flex items-center text-xs text-muted-foreground mb-1 gap-1">
+                        <MapPin className="h-3.5 w-3.5 text-primary shrink-0" />
+                        <span className="truncate">{property.location}</span>
+                      </div>
+                      <CardTitle className="text-lg font-bold line-clamp-1">
+                        {property.title}
+                      </CardTitle>
+                    </CardHeader>
+
+                    <CardContent className="flex-1 space-y-4">
+                      {/* Specs Badges */}
+                      <div className="flex items-center gap-4 text-xs text-muted-foreground pt-1 border-t">
+                        <div className="flex items-center gap-1">
+                          <Bed className="h-4 w-4 text-primary" />
+                          <span>{property.bedroomCount} Beds</span>
+                        </div>
+                        <div className="flex items-center gap-1">
+                          <Bath className="h-4 w-4 text-primary" />
+                          <span>{property.bathroomCount} Baths</span>
+                        </div>
+                      </div>
+
+                      {/* Price Tag */}
+                      <div className="flex items-baseline justify-between pt-2">
+                        <div>
+                          <span className="text-2xl font-extrabold text-primary">
+                            ${property.price}
+                          </span>
+                          <span className="text-xs text-muted-foreground">
+                            {" "}
+                            / month
+                          </span>
+                        </div>
+                      </div>
+                    </CardContent>
+
+                    <CardFooter className="pt-0 pb-6 px-6">
+                      <Button asChild className="w-full font-medium">
+                        <Link href={`/properties/${property.id}`}>
+                          View Details & Apply
+                        </Link>
+                      </Button>
+                    </CardFooter>
+                  </Card>
+                ))}
+              </div>
+            ) : (
+              // </Suspense>
+              <div className="text-center py-16 border rounded-2xl bg-muted/10">
+                <Search className="h-12 w-12 text-muted-foreground mx-auto mb-3 opacity-40" />
+                <p className="text-lg font-medium text-foreground">
+                  No properties found
+                </p>
+                <p className="text-sm text-muted-foreground mt-1">
+                  Check back later or explore our categories.
+                </p>
+              </div>
+            )}
+          </div>
+        </section>
+      </Suspense>
 
       {/* -------- Call to Action Section -------- */}
       <section className="py-20 bg-primary text-primary-foreground">
