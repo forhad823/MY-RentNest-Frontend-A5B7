@@ -15,7 +15,7 @@ import {
 } from "lucide-react";
 
 import { TProperty } from "@/lib/types";
-import { submitRentalRequestAction } from "@/app/(publicGroup)/_actions/rentalAction";
+import { submitRentalRequestAction } from "@/service/rentalAction";
 import {
   Dialog,
   DialogContent,

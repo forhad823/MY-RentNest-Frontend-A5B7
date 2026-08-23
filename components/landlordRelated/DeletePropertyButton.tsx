@@ -6,6 +6,7 @@ import { Trash2, Loader2 } from "lucide-react";
 import { toast } from "sonner";
 import { deleteProperty } from "@/service/landlord";
 import { Button } from "@/components/ui/button";
+import { revalidatePropertiesCache } from "@/service/revalidateCache";
 
 interface DeletePropertyButtonProps {
   propertyId: string;
@@ -31,6 +32,7 @@ export default function DeletePropertyButton({
       const response = await deleteProperty(propertyId);
       if (response.success) {
         toast.success("Property listing deleted successfully.");
+        revalidatePropertiesCache();
         router.refresh();
       } else {
         throw new Error(

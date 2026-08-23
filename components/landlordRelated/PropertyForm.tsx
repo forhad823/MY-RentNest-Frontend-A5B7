@@ -22,6 +22,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Checkbox } from "@/components/ui/checkbox";
+import { revalidatePropertiesCache } from "@/service/revalidateCache";
 
 interface PropertyFormProps {
   initialData?: TProperty | null;
@@ -135,6 +136,7 @@ export default function PropertyForm({
             ? "Property listing updated successfully!"
             : "Property listed successfully!",
         );
+        revalidatePropertiesCache();
         router.push("/dashboard/landlord");
         router.refresh();
       } else {

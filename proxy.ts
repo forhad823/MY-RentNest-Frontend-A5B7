@@ -14,9 +14,9 @@ interface TDecodedToken extends JwtPayload {
 }
 
 const AUTH_ROUTES = ["/login", "/register"];
-const TENANT_ROUTES = ["/dashboard/tenant"];
-const LANDLORD_ROUTES = ["/dashboard/landlord"];
-const ADMIN_ROUTES = ["/dashboard/admin"];
+// const TENANT_ROUTES = ["/dashboard/tenant"];
+// const LANDLORD_ROUTES = ["/dashboard/landlord"];
+// const ADMIN_ROUTES = ["/dashboard/admin"];
 
 /****
  * Proxy function providing:

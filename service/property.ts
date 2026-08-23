@@ -23,7 +23,10 @@ export interface TPropertyQueryFilters {
 export async function getCategories(): Promise<TApiResponse<TCategory[]>> {
   try {
     return await apiGet<TCategory[]>("/api/categories", {
-      next: { revalidate: 5 },
+      next: {
+        revalidate: 60 * 60 * 24,
+        tags: ["categories"],
+      },
     });
   } catch (error) {
     console.error("Error fetching categories:", error);
@@ -71,7 +74,10 @@ export async function getProperties(
     const endpoint = `/api/properties${queryString ? `?${queryString}` : ""}`;
 
     return await apiGet<TProperty[]>(endpoint, {
-      next: { revalidate: 5 },
+      next: {
+        revalidate: 60 * 60 * 24,
+        tags: ["properties"],
+      },
     });
   } catch (error) {
     console.error("Error fetching properties:", error);
@@ -91,7 +97,7 @@ export async function getPropertyById(
 ): Promise<TApiResponse<TProperty | null>> {
   try {
     return await apiGet<TProperty>(`/api/properties/${id}`, {
-      next: { revalidate: 5 },
+      next: { revalidate: 0 },
     });
   } catch (error) {
     console.error(`Error fetching property ${id}:`, error);

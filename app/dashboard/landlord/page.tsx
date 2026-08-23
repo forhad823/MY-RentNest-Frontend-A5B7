@@ -293,7 +293,7 @@ export default async function LandlordDashboardPage() {
                 No Listings Yet
               </h3>
               <p className="text-xs text-muted-foreground mt-1 max-w-sm mx-auto">
-                You haven&apos;t added any rental property listings to the
+                You have not added any rental property listings to the
                 platform yet. Get started by adding one.
               </p>
               <Button asChild size="sm" className="mt-4 gap-1.5">

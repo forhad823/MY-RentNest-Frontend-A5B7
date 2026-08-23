@@ -3,7 +3,6 @@ import Link from "next/link";
 import Image from "next/image";
 import {
   Building2,
-  Home,
   MapPin,
   Bed,
   Bath,
