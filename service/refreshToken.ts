@@ -9,10 +9,13 @@ import { BACKEND_BASE_URL } from "@/lib/api-client";
  * before a request context exists, so it builds its own fetch with the
  * incoming cookies forwarded manually.
  ****/
-export async function getNewAccessToken(): Promise<TApiResponse<{ accessToken: string }>> {
+export async function getNewAccessToken(): Promise<
+  TApiResponse<{ accessToken: string }>
+> {
   try {
     const cookieStore = await cookies();
     const cookieHeader = cookieStore.toString();
+    console.log("cookieHeader", cookieHeader);
 
     const response = await fetch(`${BACKEND_BASE_URL}/api/auth/refresh-token`, {
       method: "POST",
@@ -24,8 +27,20 @@ export async function getNewAccessToken(): Promise<TApiResponse<{ accessToken: s
     });
 
     const data = await response.json();
+
+    if (data.success) {
+      // Set Access Token Cookie again (1 Day)
+      cookieStore.set("accessToken", data.data.accessToken, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production",
+        sameSite: "lax",
+        path: "/",
+        maxAge: 1 * 24 * 60 * 60,
+      });
+    }
     return data;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
     return {
       success: false,
@@ -34,3 +49,5 @@ export async function getNewAccessToken(): Promise<TApiResponse<{ accessToken: s
     };
   }
 }
+
+//প

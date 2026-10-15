@@ -19,7 +19,7 @@ async function SessionNavbar() {
   const session = await getServerSession();
   return <Navbar user={session.user} />;
 }
-
+ 
 export default function RootLayout({
   children,
 }: Readonly<{

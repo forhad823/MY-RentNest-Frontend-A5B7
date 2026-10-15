@@ -5,7 +5,6 @@ import { Button } from "@/components/ui/button";
 import { AlertCircle, Home, ArrowLeft } from "lucide-react";
 
 export default function NotFound() {
-    
   const handleGoBack = () => {
     if (typeof window !== "undefined") {
       window.history.back();

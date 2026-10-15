@@ -4,6 +4,16 @@ RentNest is a full-featured rental property marketplace frontend built with **Ne
 
 > 🔗 Designed to pair with the RentNest Node/Express + Prisma REST API (cookie-based JWT sessions).
 
+<!--- home page image --->
+<img src="./public/rentnest-image.png" alt="RentNest Homepage" style="width: 100%; height: auto;">
+<br/>
+
+---
+
+> ## **Live site**: [click here](https://my-rent-nest-frontend-a5-b7.vercel.app/)
+
+---
+
 ## ✨ Features
 
 - **Public marketplace** — landing page, category browsing, multi-criteria property search (price, bedrooms, location, amenities) with pagination
@@ -14,7 +24,7 @@ RentNest is a full-featured rental property marketplace frontend built with **Ne
 - **Route protection** — Next.js 16 `proxy.ts` middleware with role-based guards and automatic access-token renewal
 - **Modern UX** — dark/light theme, toast notifications, instant skeleton loading states on navigation, fully responsive
 
-## 🛠️ Tech Stack
+## 🛠️ Tech Stack and Dependencies
 
 | Layer      | Technology                                                                                   |
 | :--------- | :------------------------------------------------------------------------------------------- |
@@ -22,6 +32,24 @@ RentNest is a full-featured rental property marketplace frontend built with **Ne
 | UI         | React 19, Tailwind CSS v4, shadcn/ui, Radix UI, lucide-react, Sonner                         |
 | State/Auth | HTTP-only cookie JWT sessions (`jsonwebtoken`), Server Actions                               |
 | Payments   | Stripe Checkout (backend-driven sessions)                                                    |
+
+**Dependencies**
+
+- [@phosphor-icons/react](https://www.npmjs.com/package/@phosphor-icons/react)
+- [@types/jsonwebtoken](https://www.npmjs.com/package/@types/jsonwebtoken)
+- [class-variance-authority](https://www.npmjs.com/package/class-variance-authority)
+- [clsx](https://www.npmjs.com/package/clsx)
+- [jsonwebtoken](https://www.npmjs.com/package/jsonwebtoken)
+- [lucide-react](https://www.npmjs.com/package/lucide-react)
+- [next](https://www.npmjs.com/package/next)
+- [next-themes](https://www.npmjs.com/package/next-themes)
+- [radix-ui](https://www.npmjs.com/package/radix-ui)
+- [react](https://www.npmjs.com/package/react)
+- [react-dom](https://www.npmjs.com/package/react-dom)
+- [shadcn](https://www.npmjs.com/package/shadcn)
+- [sonner](https://www.npmjs.com/package/sonner)
+- [tailwind-merge](https://www.npmjs.com/package/tailwind-merge)
+- [tw-animate-css](https://www.npmjs.com/package/tw-animate-css)
 
 ## 🚀 Getting Started
 
@@ -49,6 +77,8 @@ JWT_REFRESH_SECRET=refresh-secret    # must match backend
 
 # Client + server
 NEXT_PUBLIC_BACKEND_API_URL=http://localhost:5000
+
+# Or you can use https://my-rent-nest.vercel.app/  instead of  http://localhost:5000
 ```
 
 ### 3. Run the dev server

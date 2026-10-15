@@ -4,13 +4,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import {
-  Home,
-  Menu,
-  PlusCircle,
-  LogIn,
-  UserPlus,
-} from "lucide-react";
+import { Home, Menu, PlusCircle, LogIn, UserPlus } from "lucide-react";
 
 import { TAuthUser } from "@/lib/auth-session";
 import { cn } from "@/lib/utils";

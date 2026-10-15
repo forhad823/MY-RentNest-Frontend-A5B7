@@ -59,17 +59,17 @@ export async function proxy(request: NextRequest) {
       return NextResponse.redirect(new URL("/dashboard/admin", request.url));
   }
 
-  // Guard protected routes
+  // -------- Guard protected routes ------------
   if (
     !accessToken &&
     (pathname.startsWith("/dashboard") || pathname.startsWith("/payment"))
   ) {
     const loginUrl = new URL("/login", request.url);
-    loginUrl.searchParams.set("redirectTo", pathname);
+    loginUrl.searchParams.set("redirectTo", pathname); // http://localhost:3000/login?redirectTo=%2Fpayment%2Fsuccess
     return NextResponse.redirect(loginUrl);
   }
 
-  // Role authorization guards
+  // ----------- Role authorization guards ---------
   if (pathname.startsWith("/dashboard/tenant") && userRole !== "TENANT") {
     return NextResponse.redirect(new URL("/not-found", request.url));
   }
@@ -86,3 +86,4 @@ export async function proxy(request: NextRequest) {
 export const config = {
   matcher: ["/((?!api|_next/static|favicon.ico|_next/image|.*\\.png$).*)"],
 };
+//প

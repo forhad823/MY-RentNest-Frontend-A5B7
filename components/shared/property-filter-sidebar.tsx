@@ -93,6 +93,7 @@ export function PropertyFilterSidebar({
   // -------- Amenity Toggle --------
   const toggleAmenity = (amenity: string) => {
     const params = new URLSearchParams(searchParams.toString());
+    console.log("test-params", params);
     const current = params.getAll("amenities");
     params.delete("amenities");
 
@@ -106,6 +107,7 @@ export function PropertyFilterSidebar({
 
     params.set("page", "1");
     router.push(`/properties?${params.toString()}`);
+    console.log("test-current", current);
   };
 
   // -------- Reset All Filters --------

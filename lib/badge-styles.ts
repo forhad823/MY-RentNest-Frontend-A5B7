@@ -45,8 +45,7 @@ const PAYMENT_BADGE_CLASSES: Record<PaymentStatus, string> = {
     "bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/30",
   COMPLETED:
     "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/30",
-  FAILED:
-    "bg-rose-500/10 text-rose-600 dark:text-rose-400 border-rose-500/30",
+  FAILED: "bg-rose-500/10 text-rose-600 dark:text-rose-400 border-rose-500/30",
 };
 
 export function getAvailabilityBadgeClass(
@@ -56,10 +55,14 @@ export function getAvailabilityBadgeClass(
   return AVAILABILITY_BADGE_CLASSES[status][variant];
 }
 
-export function getRentalRequestBadgeClass(status: RentalRequestStatus): string {
+export function getRentalRequestBadgeClass(
+  status: RentalRequestStatus,
+): string {
   return RENTAL_REQUEST_BADGE_CLASSES[status];
 }
 
 export function getPaymentBadgeClass(status: PaymentStatus): string {
   return PAYMENT_BADGE_CLASSES[status];
 }
+
+//প
